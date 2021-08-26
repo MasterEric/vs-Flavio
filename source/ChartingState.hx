@@ -1,5 +1,6 @@
 package;
 
+import haxe.Exception;
 import openfl.system.System;
 import lime.app.Application;
 #if sys
@@ -1415,6 +1416,7 @@ class ChartingState extends MusicBeatState
 						var thing = ii.sectionNotes[ii.sectionNotes.length - 1];
 
 						var note:Note = new Note(strum, Math.floor(i[1] % 4),null,false,true,i[3], i[4]);
+						note.setNoteType(i[5]);
 						note.rawNoteData = i[1];
 						note.sustainLength = i[2];
 						note.setGraphicSize(Math.floor(GRID_SIZE), Math.floor(GRID_SIZE));
@@ -1827,9 +1829,13 @@ class ChartingState extends MusicBeatState
 						{
 							// We need to make CERTAIN vocals exist and are non-empty
 							// before we try to play them. Otherwise the game crashes.  
-							if (vocals != null && vocals.length > 0)
+							if (vocals != null && vocals.length > 0 && vocals._channel.__source.__backend.handle != null)
 							{
-								lime.media.openal.AL.sourcef(vocals._channel.__source.__backend.handle, lime.media.openal.AL.PITCH, speed);
+								if (vocals.length != FlxG.sound.music.length) {
+									throw new Exception('ERROR: Vocal length does not match with music length! The song will crash during charting.');
+								} else {
+									lime.media.openal.AL.sourcef(vocals._channel.__source.__backend.handle, lime.media.openal.AL.PITCH, speed);
+								}
 							}
 						}
 						catch(e)
@@ -2839,6 +2845,7 @@ class ChartingState extends MusicBeatState
 				var daSus = i[2];
 
 				var note:Note = new Note(daStrumTime, daNoteInfo % 4,null,false,true,i[3], i[4]);
+				note.setNoteType(i[5]);
 				note.rawNoteData = daNoteInfo;
 				note.sustainLength = daSus;
 				note.setGraphicSize(Math.floor(GRID_SIZE), Math.floor(GRID_SIZE));
@@ -3221,6 +3228,7 @@ class ChartingState extends MusicBeatState
 		else
 		{
 			var note:Note = new Note(n.strumTime, n.noteData % 4,null,false,true, n.isAlt,TimingStruct.getBeatFromTime(n.strumTime));
+			note.setNoteType(n.noteType);
 			note.beat = TimingStruct.getBeatFromTime(n.strumTime);
 			note.rawNoteData = n.noteData;
 			note.sustainLength = noteSus;

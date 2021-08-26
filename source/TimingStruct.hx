@@ -4,13 +4,30 @@ class TimingStruct
 {
     public static var AllTimings:Array<TimingStruct> = [];
 
+    /**
+     * The BPM during this timing.
+     */
     public var bpm:Float = 0; // idk what does  this do
 
+    /**
+     * The beat number where this struct starts applying.
+     */
     public var startBeat:Float = 0; // BEATS
+    /**
+     * The step number where this struct starts applying.
+     */
     public var startStep:Int = 0; // BAD MEASUREMENTS
-    public var endBeat:Float = Math.POSITIVE_INFINITY; // BEATS
+    /**
+     * The time in seconds where this starts applying.
+     */
     public var startTime:Float = 0; // SECONDS
-
+    /**
+     * The beat number where this struct stop applying.
+     */
+    public var endBeat:Float = Math.POSITIVE_INFINITY; // BEATS
+    /**
+     * The length of this struct in beats.
+     */
     public var length:Float = Math.POSITIVE_INFINITY; // in beats
 
     public static function clearTimings()

@@ -338,6 +338,13 @@ class StoryMenuState extends MusicBeatState
 
 	function selectWeek()
 	{
+    if (!Song.validateSongs(weekData()[curWeek], curDifficulty)) {
+      // If any song doesn't exist, stop loading the week.
+      FlxG.sound.play(Paths.sound('cancelMenu'));
+      trace('CANCELLED loading week: one or more songs are missing on this difficulty!');
+      return;
+    }
+
 		if (weekUnlocked[curWeek])
 		{
 			if (stopspamming == false)

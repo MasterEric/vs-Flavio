@@ -1,6 +1,7 @@
 #if sys
 package;
 
+import flixel.graphics.frames.FlxFramesCollection;
 import lime.app.Application;
 #if desktop
 import Discord.DiscordClient;
@@ -46,6 +47,8 @@ class Caching extends MusicBeatState
 	var music = [];
 	var charts = [];
 
+	public static var frameCache:Map<String,FlxAtlasFrames>;
+
 
 	override function create()
 	{
@@ -61,6 +64,7 @@ class Caching extends MusicBeatState
 		FlxG.worldBounds.set(0,0);
 
 		bitmapData = new Map<String,FlxGraphic>();
+		frameCache = new Map<String,FlxAtlasFrames>();
 
 		text = new FlxText(FlxG.width / 2, FlxG.height / 2 + 300,0,"Loading...");
 		text.size = 34;
@@ -174,7 +178,6 @@ class Caching extends MusicBeatState
 			trace("cached " + i);
 			done++;
 		}
-
 
 		trace("Finished caching...");
 

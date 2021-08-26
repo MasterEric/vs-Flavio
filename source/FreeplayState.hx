@@ -126,6 +126,7 @@ class FreeplayState extends MusicBeatState
 
 		}
 
+		/*
 		trace("tryin to load sm files");
 
 		#if sys
@@ -166,6 +167,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 		#end
+		*/
 
 		//trace("\n" + diffList);
 
@@ -424,11 +426,13 @@ class FreeplayState extends MusicBeatState
 			try
 			{
 				hmm = songData.get(songs[curSelected].songName)[curDifficulty];
-				if (hmm == null)
+				if (hmm == null) {
+					trace('Could not load song ${songs[curSelected].songName} at difficulty ${curDifficulty}');
 					return;
+				}
 			}
-			catch(ex)
-			{
+			catch(ex) {
+				trace('Could not load song ${songs[curSelected].songName} at difficulty ${curDifficulty}');
 				return;
 			}
 
@@ -462,14 +466,16 @@ class FreeplayState extends MusicBeatState
 
 	function changeDiff(change:Int = 0)
 	{
-		if (!songs[curSelected].diffs.contains(CoolUtil.difficultyFromInt(curDifficulty + change)))
+		if (!songs[curSelected].diffs.contains(CoolUtil.difficultyFromInt(curDifficulty + change))) {
+			trace('Could not load song ${songs[curSelected].songName} at difficulty ${curDifficulty}');
 			return;
+		}
 
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = (CoolUtil.difficultyArray.length - 1);
+		if (curDifficulty > (CoolUtil.difficultyArray.length - 1))
 			curDifficulty = 0;
 
 
@@ -484,9 +490,19 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
-		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
+		updateDifficultyText();
 	}
+
+	function updateDifficultyText() {
+    var songDataCurrentDiff = songData.get(songs[curSelected].songName)[curDifficulty];
+    if (songDataCurrentDiff != null) {
+      diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songDataCurrentDiff)}';
+      diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
+    } else {
+      diffCalcText.text = 'RATING: N/A';
+      diffText.text = '${CoolUtil.difficultyFromInt(curDifficulty).toUpperCase()} (NOT AVAILABLE)';
+    }
+  }
 
 	function changeSelection(change:Int = 0)
 	{
@@ -535,8 +551,7 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
-		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
+    updateDifficultyText();
 		
 		#if PRELOAD_ALL
 		if (songs[curSelected].songCharacter == "sm")
@@ -552,15 +567,13 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
 
-		var hmm;
-			try
-			{
-				hmm = songData.get(songs[curSelected].songName)[curDifficulty];
-				if (hmm != null)
-					Conductor.changeBPM(hmm.bpm);
-			}
-			catch(ex)
-			{}
+    try {
+      var songDataCurrentDiff = songData.get(songs[curSelected].songName)[curDifficulty];
+      if (songDataCurrentDiff != null) {
+        Conductor.changeBPM(songDataCurrentDiff.bpm);
+      }
+    }
+    catch (ex) {}
 
 		if (openedPreview)
 		{

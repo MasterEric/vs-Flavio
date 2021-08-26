@@ -284,6 +284,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+
 		FlxG.mouse.visible = false;
 		instance = this;
 
@@ -744,6 +745,17 @@ class PlayState extends MusicBeatState
 			luaModchart.executeState('start', [songLowercase]);
 		}
 		#end
+
+		// ERIC: My special caching functionality.
+		// There's probably a better way to write this.
+		switch(songLowercase) {
+			case "testa":
+				trace('Starting to load Sonic frame data into cache...');
+				// Special caching.
+				var frameData = Paths.getSparrowAtlas('sonic','shared',true);
+				Caching.frameCache.set('sonicCharacter', frameData);
+				trace('Done loading frame data.');
+		}
 
 		if (executeModchart)
 			{
@@ -1670,6 +1682,8 @@ class PlayState extends MusicBeatState
 					oldNote = null;
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote,false,false,false,songNotes[4]);
+				// If there is an extra fourth value to the note, we know we have a custom note type.
+				swagNote.setNoteType(songNotes[5]);
 
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
@@ -1694,6 +1708,7 @@ class PlayState extends MusicBeatState
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
 					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData, oldNote, true);
+					sustainNote.setNoteType(songNotes[3]);
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
 					sustainNote.isAlt = songNotes[3];
@@ -2055,27 +2070,27 @@ class PlayState extends MusicBeatState
 						var currentIndex = 0;
 						for (i in SONG.eventObjects)
 						{
-							if (i.type == "BPM Change")
-							{
-								var beat:Float = i.position;
+							switch(i.type) {
+								case "BPM Change":
+									var beat:Float = i.position;
 		
-								var endBeat:Float = Math.POSITIVE_INFINITY;
-		
-								var bpm = i.value;
-
-								TimingStruct.addTiming(beat,bpm,endBeat, 0); // offset in this case = start time since we don't have a offset
-								
-								if (currentIndex != 0)
-								{
-									var data = TimingStruct.AllTimings[currentIndex - 1];
-									data.endBeat = beat;
-									data.length = (data.endBeat - data.startBeat) / (data.bpm / 60);
-									var step = ((60 / data.bpm) * 1000) / 4;
-									TimingStruct.AllTimings[currentIndex].startStep = Math.floor(((data.endBeat / (data.bpm / 60)) * 1000) / step);
-									TimingStruct.AllTimings[currentIndex].startTime = data.startTime + data.length;
-								}
-		
-								currentIndex++;
+									var endBeat:Float = Math.POSITIVE_INFINITY;
+			
+									var bpm = i.value;
+	
+									TimingStruct.addTiming(beat,bpm,endBeat, 0); // offset in this case = start time since we don't have a offset
+									
+									if (currentIndex != 0)
+									{
+										var data = TimingStruct.AllTimings[currentIndex - 1];
+										data.endBeat = beat;
+										data.length = (data.endBeat - data.startBeat) / (data.bpm / 60);
+										var step = ((60 / data.bpm) * 1000) / 4;
+										TimingStruct.AllTimings[currentIndex].startStep = Math.floor(((data.endBeat / (data.bpm / 60)) * 1000) / step);
+										TimingStruct.AllTimings[currentIndex].startTime = data.startTime + data.length;
+									}
+			
+									currentIndex++;
 							}
 						}
 		
@@ -2689,8 +2704,9 @@ class PlayState extends MusicBeatState
 		}
 
 		FlxG.watch.addQuick("curBPM", Conductor.bpm);
-		FlxG.watch.addQuick("beatShit", curBeat);
-		FlxG.watch.addQuick("stepShit", curStep);
+		FlxG.watch.addQuick("curBeat", curBeat);
+		FlxG.watch.addQuick("curDecimalBeat", curDecimalBeat);
+		FlxG.watch.addQuick("curStep", curStep);
 
 		if (curSong == 'Fresh')
 		{
@@ -4324,6 +4340,12 @@ class PlayState extends MusicBeatState
 
 		if (!note.wasGoodHit)
 		{
+			// Perform custom note behavior and skip normal handling.
+			if (note.noteType != null) {
+				customNoteHit(note);
+				return;
+			}
+
 			if (!note.isSustainNote)
 			{
 				popUpScore(note);
@@ -4373,6 +4395,34 @@ class PlayState extends MusicBeatState
 			}
 			if (!note.isSustainNote)
 				updateAccuracy();
+		}
+	}
+
+	function customNoteHit(note:Note) {
+		switch(note.noteType) {
+			case "darkhalo":
+				// Health Penalty. Max health is 200%.
+				// health -= 0.35 * 2;
+				health = 0;
+
+				boyfriend.playAnim('sing' + dataSuffix[note.noteData] + 'miss', true);
+
+				if (combo > 5 && gf.animOffsets.exists('sad')) {
+					gf.playAnim('sad');
+				}
+				combo = 0;
+
+				songScore -= 10;
+				if (!endingSong) misses++;
+
+				if (!note.isSustainNote) {
+					FlxTween.cancelTweensOf(note);
+					note.kill();
+					notes.remove(note, true);
+					note.destroy();
+				}
+			default:
+				trace("Bad custom note type!");
 		}
 	}
 
@@ -4487,7 +4537,9 @@ class PlayState extends MusicBeatState
 	function lightningStrikeShit():Void
 	{
 		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
-		Stage.swagBacks['halloweenBG'].animation.play('lightning');
+		if (Stage.swagBacks['halloweenBG'] != null) {
+			Stage.swagBacks['halloweenBG'].animation.play('lightning');
+		}
 
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
@@ -4501,6 +4553,43 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
+		
+		// ERIC: Hardcoding for song events is done here.
+		// Should really figure out how song events works.
+		if (curSong == 'TestA') {
+			
+			// Perform an event on a given step.
+			// Note: 4 steps makes a beat.
+			switch(curStep) {
+				case 74: // 18.5 x 4
+					// Set enemy character to Sonic.
+					var oldenemyx = PlayState.dad.x;
+					var oldenemyy = PlayState.dad.y;
+					removeObject(PlayState.dad); // Remove old dad from stage.
+					dad = new Character(oldenemyx, oldenemyy, "sonic"); // Create new dad.
+					addObject(PlayState.dad); // Add him in.
+					dad.x += 100; // Fix position.
+					dad.y += 150;
+					iconP2.changeIcon("sonic"); // Replace HP icon.
+					
+					// Hide the HUD for dramatic effect.
+					camHUD.visible = false;
+				case 92: // 23 x 4
+					// Re-enable the HUD.
+					camHUD.visible = true;
+				case 192: // 48 x 4
+					// Set enemy character to Dad.
+					var oldenemyx = PlayState.dad.x;
+					var oldenemyy = PlayState.dad.y;
+					removeObject(PlayState.dad); // Remove old dad from stage.
+					dad = new Character(oldenemyx, oldenemyy, "dad"); // Create new dad.
+					addObject(PlayState.dad); // Add him in.
+					dad.x -= 100; // Fix position.
+					dad.y -= 150;
+					iconP2.changeIcon("dad"); // Replace HP icon.
+			}
+		}
+
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
@@ -4648,6 +4737,11 @@ class PlayState extends MusicBeatState
 			{
 				boyfriend.playAnim('hey', true);
 				dad.playAnim('cheer', true);
+			}
+
+			if (curBeat == 18 && SONG.song == 'TestA') {
+				boyfriend.playAnim('scared', true);
+				gf.playAnim('scared', true);
 			}
 
 			if (!PlayStateChangeables.Optimize)

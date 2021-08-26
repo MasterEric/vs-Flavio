@@ -103,6 +103,11 @@ class Main extends Sprite
 		addChild(fpsCounter);
 		toggleFPS(FlxG.save.data.fps);
 		#end
+
+		#if debug
+		// Redirect traces to the debug log!
+		// FlxG.log.redirectTraces = true;
+		#end
 	}
 
 	var game:FlxGame;

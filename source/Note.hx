@@ -70,6 +70,8 @@ class Note extends FlxSprite
 
 	public var children:Array<Note> = [];
 
+	public var noteType:String = null;
+
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false, ?isAlt:Bool = false, ?bet:Float = 0)
 	{
 		super();
@@ -256,6 +258,28 @@ class Note extends FlxSprite
 
 				noteYOff = Math.round(-offset.y);
 			}
+		}
+	}
+
+	public function setNoteType(noteType:String) {
+		if (noteType == null || noteType == "false") return;
+
+		this.noteType = noteType.toLowerCase();
+
+		// Else, custom note type is not null! Override the existing note sprite.
+		switch(this.noteType) {
+			case "darkhalo":
+				frames = Paths.getSparrowAtlas('notes/DarkHaloNote');
+
+				for (i in 0...4)
+				{
+					animation.addByPrefix(dataColor[i] + 'Scroll', dataColor[i] + ' Note'); // Normal notes
+				}
+
+				setGraphicSize(Std.int(width * 0.7));
+				updateHitbox();
+				
+				antialiasing = FlxG.save.data.antialiasing;
 		}
 	}
 
