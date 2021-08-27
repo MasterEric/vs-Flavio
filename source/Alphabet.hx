@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -52,8 +53,13 @@ class Alphabet extends FlxSpriteGroup
 	var xScale:Float;
 	var yScale:Float;
 
+	/**
+	 * If false, the bar will stay static, not moving with the camera.
+	 */
+	public var shouldMove:Bool = false;
+
 	// ThatGuy: Added 2 more variables, xScale and yScale for resizing text
-	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, shouldMove:Bool = false, xScale:Float = 1, yScale:Float = 1)
+	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, shouldMove = false, xScale:Float = 1, yScale:Float = 1)
 	{
 		pastX = x;
 		pastY = y;
@@ -61,6 +67,8 @@ class Alphabet extends FlxSpriteGroup
 		// ThatGuy: Have to assign these variables
 		this.xScale = xScale;
 		this.yScale = yScale;
+
+		this.shouldMove = shouldMove;
 
 		super(x, y);
 
@@ -80,6 +88,29 @@ class Alphabet extends FlxSpriteGroup
 			}
 
 		}
+	}
+
+	override function initVars() {
+		super.initVars();
+
+		if (shouldMove) {
+			scrollFactor.set(1, 1);
+		} else {
+			scrollFactor.set(0, 0);
+		}
+	}
+
+	/**
+	 * Repositions the text while making sure the change isn't reverted
+	 * when scaling or retyping.
+	 * @param xPos
+	 * @param yPos
+	 */
+	public function moveText(xPos:Float, yPos:Float) {
+		pastX = xPos;
+		pastY = yPos;
+		x = pastX;
+		y = pastY;
 	}
 
 	public function reType(text, xScale:Float = 1, yScale:Float = 1)
@@ -135,7 +166,6 @@ class Alphabet extends FlxSpriteGroup
 					lastWasSpace = false;
 				}
 
-				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0);
 				
 				// ThatGuy: These are the lines that change the individual scaling of each character
@@ -163,6 +193,16 @@ class Alphabet extends FlxSpriteGroup
 	function doSplitWords():Void
 	{
 		splitWords = _finalText.split("");
+	}
+
+	/**
+	 * Tint all letters in the label.
+	 * @param color 
+	 */
+	public function recolorText(color:FlxColor):Void {
+		for (i in listOAlphabets) {
+			i.color = color;
+		}
 	}
 
 	public var personTalking:String = 'gf';
@@ -227,7 +267,6 @@ class Alphabet extends FlxSpriteGroup
 				}
 				// trace(_finalText.fastCodeAt(loopNum) + " " + _finalText.charAt(loopNum));
 
-				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti);
 				listOAlphabets.add(letter);
 				letter.row = curRow;

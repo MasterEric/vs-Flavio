@@ -164,6 +164,14 @@ class PlayState extends MusicBeatState
 	private var gfSpeed:Int = 1;
 
 	public var health:Float = 1; // making public because sethealth doesnt work without it
+	public var fear:Float = 0; // making public because sethealth doesnt work without it
+
+	/**
+	 * No, not the one with Joe Rogan.
+	 * This is how much your Fear meter increases note damage by.
+	 * A value of 1 means at 100% Fear, missing notes will deal 100% more damage.
+	 */
+	public static final FEAR_FACTOR = 1;
 
 	private var combo:Int = 0;
 
@@ -185,6 +193,10 @@ class PlayState extends MusicBeatState
 	private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
 	private var songPositionBar:Float = 0;
+
+	private var fearBarBG:FlxSprite;
+	private var fearBar:FlxBar;
+	private var fearBarText:Alphabet;
 
 	private var generatedMusic:Bool = false;
 	private var startingSong:Bool = false;
@@ -868,6 +880,38 @@ class PlayState extends MusicBeatState
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
 
+		fearBarBG = new FlxSprite(0, FlxG.height * 0.825).loadGraphic(Paths.image('healthBar'));
+		if (PlayStateChangeables.useDownscroll)
+			fearBarBG.y = 100;
+		fearBarBG.screenCenter(X);
+		fearBarBG.scrollFactor.set();
+		// ERIC: Fear bar fills from 0 to 1.
+		// xpos, ypos, fill direction, width, height, parent, variable, min, max, border
+		fearBar = new FlxBar(fearBarBG.x + 4, fearBarBG.y + 4, LEFT_TO_RIGHT,
+			Std.int(fearBarBG.width - 8), Std.int(fearBarBG.height - 8), this, 'fear', 0, 1, false);
+		fearBar.scrollFactor.set();
+		fearBar.createFilledBar(0xFF6E6E6E, 0xFF8400FF);
+		
+		fearBarText = new Alphabet(0,0, "FEAR", true, false, false, 0.8, 0.8);
+		// Reposition once we know the size of the label.
+		fearBarText.moveText(fearBarBG.x - fearBarText.width - 16,
+			fearBarBG.y - fearBarText.height / 2);
+
+		switch (songLowercase) {
+			case 'testa':
+				// Only add the Fear bar on this song.
+				add(fearBarBG);
+				add(fearBar);
+				add(fearBarText);
+				fear = 0.15;
+			case 'testb':
+				// Only add the Fear bar on this song.
+				add(fearBarBG);
+				add(fearBar);
+				add(fearBarText);
+				fear = 0;
+		}
+
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
@@ -1035,6 +1079,20 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, releaseInput);
 		super.create();
+	}
+
+	function setFear(value:Float) {
+		// Set the fear value.
+		fear = value;
+		// Make the the label flash purple for a short period.
+		fearBarText.resizeText(0.9, 0.9, true, false);
+		// NOTE: Resize before recoloring.
+		fearBarText.recolorText(0xFF8400FF);
+		// Revert the color.
+		new FlxTimer().start(0.2, function(tmr:FlxTimer){
+			fearBarText.resizeText(0.8, 0.8, true, false);
+			fearBarText.recolorText(FlxColor.WHITE);
+		}, 1);
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -1419,7 +1477,8 @@ class PlayState extends MusicBeatState
 			ana.hit = false;
 			ana.hitJudge = "shit";
 			ana.nearestNote = [];
-			health -= 0.20;
+			// ERIC: Need to figure out which code handles misses in which circumstances.
+			health -= 0.20 + (0.2 * fear * FEAR_FACTOR);
 		}
 	}
 
@@ -3114,7 +3173,7 @@ class PlayState extends MusicBeatState
 									if (daNote.isParent)
 									{
 										// ERIC: Player loses health for missing a long note.
-										health -= 0.15; // give a health punishment for failing a LN
+										health -= 0.15 + (0.2 * fear * FEAR_FACTOR); // give a health punishment for failing a LN
 										trace("hold fell over at the start");
 										for (i in daNote.children)
 										{
@@ -3144,7 +3203,7 @@ class PlayState extends MusicBeatState
 											&& !daNote.isSustainNote)
 										{
 											// ERIC: When is this called?
-											health -= 0.15;
+											health -= 0.15 + (0.2 * fear * FEAR_FACTOR);
 										}
 									}
 								}
@@ -3169,7 +3228,7 @@ class PlayState extends MusicBeatState
 
 								if (daNote.isParent && daNote.visible)
 								{
-									health -= 0.15; // give a health punishment for failing a LN
+									health -= 0.15 + (0.2 * fear * FEAR_FACTOR); // give a health punishment for failing a LN
 									trace("hold fell over at the start");
 									for (i in daNote.children)
 									{
@@ -3200,7 +3259,7 @@ class PlayState extends MusicBeatState
 										// ERIC: I think this is the primary note hit punishment function?
 										// Only punish if the note was safe to hit.
 										if (isNoteSafe(daNote)) {
-											health -= 0.15;
+											health -= 0.15 + (0.2 * fear * FEAR_FACTOR);
 										}
 									}
 								}
@@ -3538,7 +3597,7 @@ class PlayState extends MusicBeatState
 				score = -300;
 				combo = 0;
 				misses++;
-				health -= 0.1;
+				health -= 0.1 + (0.2 * fear * FEAR_FACTOR);
 				ss = false;
 				shits++;
 				if (FlxG.save.data.accuracyMod == 0)
@@ -3546,7 +3605,7 @@ class PlayState extends MusicBeatState
 			case 'bad':
 				daRating = 'bad';
 				score = 0;
-				health -= 0.06;
+				health -= 0.06 + (0.2 * fear * FEAR_FACTOR);
 				ss = false;
 				bads++;
 				if (FlxG.save.data.accuracyMod == 0)
@@ -4600,6 +4659,11 @@ class PlayState extends MusicBeatState
 					boyfriend.forceAnimation = "scared";
 					gf.forceAnimation = "scared";
 
+					// Forcibly increase fear meter.
+					if (fear < 0.35) {
+						setFear(0.35);
+					}
+					
 					// Fancy red screen flash for dramatic effect.
 					redScreenFlash();
 
@@ -4625,6 +4689,14 @@ class PlayState extends MusicBeatState
 
 					// Make sure he's playing the idle animation.
 					dad.playAnim("idle");
+			}
+		}
+
+		if (curSong == 'TestB') {
+			switch(curStep) {
+				case 24: // 6 x 4
+					// Forcibly increase fear meter.
+					setFear(1);
 			}
 		}
 
