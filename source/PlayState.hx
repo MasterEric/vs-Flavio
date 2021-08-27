@@ -109,6 +109,9 @@ class PlayState extends MusicBeatState
 	public static var songPosBar:FlxBar;
 
 	public static var rep:Replay;
+	/**
+	 * ERIC: This is set to true if a song replay is loaded.
+	 */
 	public static var loadRep:Bool = false;
 	public static var inResults:Bool = false;
 
@@ -1144,6 +1147,7 @@ class PlayState extends MusicBeatState
 
 		var swagCounter:Int = 0;
 
+		// Handle the 3-2-1-GO sequence.
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
 			dad.dance();
@@ -1291,8 +1295,10 @@ class PlayState extends MusicBeatState
 	private function handleInput(evt:KeyboardEvent):Void
 	{ // this actually handles press inputs
 
-		if (PlayStateChangeables.botPlay || loadRep || paused)
+		// ERIC: If we are in bot mode, don't even use this function.
+		if (PlayStateChangeables.botPlay || loadRep || paused) {
 			return;
+		}
 
 		// first convert it from openfl to a flixel key code
 		// then use FlxKey to get the key's name based off of the FlxKey dictionary
@@ -1346,8 +1352,12 @@ class PlayState extends MusicBeatState
 
 		notes.forEachAlive(function(daNote:Note)
 		{
-			if (daNote.canBeHit && daNote.mustPress && !daNote.wasGoodHit)
+			// ERIC: canBeHit represents closeness to the strumline.
+			// mustPress represents the note being on our side.
+			// wasGoodHit represents whether the note has already been registered as hit.
+			if (daNote.canBeHit && daNote.mustPress && !daNote.wasGoodHit) {
 				closestNotes.push(daNote);
+			}
 		}); // Collect notes that can be hit
 
 		closestNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
@@ -1395,6 +1405,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+			// ERIC: I think this actually represents hitting a note when you press a key.
+			// It includes accurate judging etc.
 			goodNoteHit(coolNote);
 			var noteDiff:Float = -(coolNote.strumTime - Conductor.songPosition);
 			ana.hit = true;
@@ -2828,6 +2840,7 @@ class PlayState extends MusicBeatState
 		{
 			var holdArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
 
+			// ERIC: Move each note closer to the strumlines.
 			notes.forEachAlive(function(daNote:Note)
 			{
 				// instead of doing stupid y > FlxG.height
@@ -2886,14 +2899,16 @@ class PlayState extends MusicBeatState
 					}
 					else
 					{
-						if (daNote.mustPress)
+						if (daNote.mustPress) {
+
 							daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
-								- 0.45 * ((Conductor.rawPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2))) + daNote.noteYOff;
-						else
+							- 0.45 * ((Conductor.rawPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+								2))) + daNote.noteYOff;
+						} else {
 							daNote.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
-								- 0.45 * ((Conductor.rawPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2))) + daNote.noteYOff;
+							- 0.45 * ((Conductor.rawPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+								2))) + daNote.noteYOff;
+						}
 						if (daNote.isSustainNote)
 						{
 							daNote.y -= daNote.height / 2;
@@ -3071,15 +3086,20 @@ class PlayState extends MusicBeatState
 					&& PlayStateChangeables.useDownscroll)
 					&& daNote.mustPress && daNote.strumTime / songMultiplier - Conductor.songPosition / songMultiplier < -(166 * Conductor.timeScale) && songStarted)
 				{
+					// ERIC: I believe this code runs when a note hits the top of the screen?
 					if (daNote.isSustainNote && daNote.wasGoodHit)
 						{
+							// ERIC: Run this if the note is a sustain note and the parent was hit.
 							daNote.kill();
 							notes.remove(daNote, true);
 						}
 						else
 						{
+							// ERIC: Are we in a replay?
 							if (loadRep && daNote.isSustainNote)
 							{
+								// ERIC: If so, punish the player.
+
 								// im tired and lazy this sucks I know i'm dumb
 								if (findByTime(daNote.strumTime) != null)
 									totalNotesHit += 1;
@@ -3088,10 +3108,12 @@ class PlayState extends MusicBeatState
 									vocals.volume = 0;
 									if (theFunne && !daNote.isSustainNote)
 									{
+										// ERIC: Player misses a standard note.
 										noteMiss(daNote.noteData, daNote);
 									}
 									if (daNote.isParent)
 									{
+										// ERIC: Player loses health for missing a long note.
 										health -= 0.15; // give a health punishment for failing a LN
 										trace("hold fell over at the start");
 										for (i in daNote.children)
@@ -3121,6 +3143,7 @@ class PlayState extends MusicBeatState
 										else if (!daNote.wasGoodHit
 											&& !daNote.isSustainNote)
 										{
+											// ERIC: When is this called?
 											health -= 0.15;
 										}
 									}
@@ -3134,7 +3157,11 @@ class PlayState extends MusicBeatState
 									if (PlayStateChangeables.botPlay)
 									{
 										daNote.rating = "bad";
-										goodNoteHit(daNote);
+										// ERIC: A sneaky backdoor failsafe to ensure the bot hits every note.
+										if (isNoteSafe(daNote)) {
+											// If note is not safe to hit, don't force the bot to hit it.
+											goodNoteHit(daNote);
+										}
 									}
 									else
 										noteMiss(daNote.noteData, daNote);
@@ -3157,7 +3184,6 @@ class PlayState extends MusicBeatState
 										&& daNote.sustainActive
 										&& daNote.spotInLine != daNote.parent.children.length)
 									{
-										//health -= 0.05; // give a health punishment for failing a LN
 										trace("hold fell over at " + daNote.spotInLine);
 										for (i in daNote.parent.children)
 										{
@@ -3171,7 +3197,11 @@ class PlayState extends MusicBeatState
 									else if (!daNote.wasGoodHit
 										&& !daNote.isSustainNote)
 									{
-										health -= 0.15;
+										// ERIC: I think this is the primary note hit punishment function?
+										// Only punish if the note was safe to hit.
+										if (isNoteSafe(daNote)) {
+											health -= 0.15;
+										}
 									}
 								}
 							}
@@ -3836,12 +3866,10 @@ class PlayState extends MusicBeatState
 				anas[i] = new Ana(Conductor.songPosition, null, false, "miss", i);
 
 		// HOLDS, check for sustain notes
-		if (holdArray.contains(true) && /*!boyfriend.stunned && */ generatedMusic)
-		{
-			notes.forEachAlive(function(daNote:Note)
-			{
-				if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdArray[daNote.noteData] && daNote.sustainActive)
-				{
+		if (holdArray.contains(true) && /*!boyfriend.stunned && */ generatedMusic) {
+			notes.forEachAlive(function(daNote:Note) {
+				if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdArray[daNote.noteData] && daNote.sustainActive) {
+					// ERIC: Make sure sustain notes are hit if you're holding the note down.
 					goodNoteHit(daNote);
 				}
 			});
@@ -3903,10 +3931,10 @@ class PlayState extends MusicBeatState
 
 				var hit = [false,false,false,false];
 
-				if (perfectMode)
+				if (perfectMode) {
+
 					goodNoteHit(possibleNotes[0]);
-				else if (possibleNotes.length > 0)
-				{
+				} else if (possibleNotes.length > 0) {
 					if (!FlxG.save.data.ghost)
 					{
 						for (shit in 0...pressArray.length)
@@ -3919,6 +3947,7 @@ class PlayState extends MusicBeatState
 					{
 						if (pressArray[coolNote.noteData] && !hit[coolNote.noteData])
 						{
+							// ERIC: Good job, human player hit this note.
 							if (mashViolations != 0)
 								mashViolations--;
 							hit[coolNote.noteData] = true;
@@ -3934,8 +3963,10 @@ class PlayState extends MusicBeatState
 				
 				if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || PlayStateChangeables.botPlay))
 				{
-					if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && (boyfriend.animation.curAnim.curFrame >= 10 || boyfriend.animation.curAnim.finished))
+					// Handles making BF stop singing at the end of a hold note.
+					if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && (boyfriend.animation.curAnim.curFrame >= 10 || boyfriend.animation.curAnim.finished)) {
 						boyfriend.playAnim('idle');
+					}
 				}
 				else if (!FlxG.save.data.ghost)
 				{
@@ -3950,18 +3981,21 @@ class PlayState extends MusicBeatState
 					if (i != null)
 						replayAna.anaArray.push(i); // put em all there
 		}
-		if (PlayStateChangeables.botPlay)
-		notes.forEachAlive(function(daNote:Note)
-		{
+		// ERIC: This conditional block didn't have braces on it, ugh.
+		if (PlayStateChangeables.botPlay) {
+			// ERIC: Here, we hit EVERY note while Bot Play is enabled!
+			notes.forEachAlive(function(daNote:Note) {
 			var diff = -((daNote.strumTime - Conductor.songPosition ) / songMultiplier);
 
+			// ERIC: IDK why it's rated if it'll always be SICK!...
 			daNote.rating = Ratings.judgeNote(daNote);
-			if (daNote.mustPress && daNote.rating == "sick" || (diff > 0 && daNote.mustPress))
-			{
+			if (daNote.mustPress && daNote.rating == "sick" || (diff > 0 && daNote.mustPress)) {
 				// Force good note hit regardless if it's too late to hit it or not as a fail safe
 					if (loadRep)
 					{
-						// trace('ReplayNote ' + tmpRepNote.strumtime + ' | ' + tmpRepNote.direction);
+						// ERIC: We are in replay mode!
+						// This checks whether the note was pressed in the saved replay,
+						// and hits the note if it was.
 						var n = findByTime(daNote.strumTime);
 						trace(n);
 						if (n != null)
@@ -3989,35 +4023,30 @@ class PlayState extends MusicBeatState
 					}
 					else
 					{
-						goodNoteHit(daNote);
-						boyfriend.holdTimer = 0;
-						if (FlxG.save.data.cpuStrums)
-							{
-								playerStrums.forEach(function(spr:StaticArrow)
-								{
+						// We are not in replay mode, this is normal Bot mode.
+						if (isNoteSafe(daNote)) {
+							goodNoteHit(daNote);
+							boyfriend.holdTimer = 0;
+							if (FlxG.save.data.cpuStrums) {
+								playerStrums.forEach(function(spr:StaticArrow) {
 									pressArrow(spr, spr.ID, daNote);
-									/*
-									if (spr.animation.curAnim.name == 'confirm' && SONG.noteStyle != 'pixel')
-									{
-										spr.centerOffsets();
-										spr.offset.x -= 13;
-										spr.offset.y -= 13;
-									}
-									else
-										spr.centerOffsets();
-								*/
 								});
 							}
+						}
 					}
 			}
-		});
+			});
+		}
 
 		if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && (!holdArray.contains(true) || PlayStateChangeables.botPlay))
 		{
-			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && (boyfriend.animation.curAnim.curFrame >= 10 || boyfriend.animation.curAnim.finished))
+			// Handle making BF stop singing at the end of a hold note.
+			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss') && (boyfriend.animation.curAnim.curFrame >= 10 || boyfriend.animation.curAnim.finished)) {
 				boyfriend.playAnim('idle');
+			}
 		}
 
+		// ERIC: Play the PRESSED animation on the strumlines on keypress.
 		if (!PlayStateChangeables.botPlay)
 		{
 			playerStrums.forEach(function(spr:StaticArrow)
@@ -4264,47 +4293,16 @@ class PlayState extends MusicBeatState
 
 	function noteCheck(controlArray:Array<Bool>, note:Note):Void // sorry lol
 	{
+		// ERIC: This function appears to be deprecated or unused...
+
+
 		var noteDiff:Float = -(note.strumTime - Conductor.songPosition);
 
 		note.rating = Ratings.judgeNote(note);
 
-		/* if (loadRep)
-			{
-				if (controlArray[note.noteData])
-					goodNoteHit(note, false);
-				else if (rep.replay.keyPresses.length > repPresses && !controlArray[note.noteData])
-				{
-					if (NearlyEquals(note.strumTime,rep.replay.keyPresses[repPresses].time, 4))
-					{
-						goodNoteHit(note, false);
-					}
-				}
-		}*/
-
 		if (controlArray[note.noteData])
 		{
 			goodNoteHit(note, (mashing > getKeyPresses(note)));
-
-			/*if (mashing > getKeyPresses(note) && mashViolations <= 2)
-				{
-					mashViolations++;
-
-					goodNoteHit(note, (mashing > getKeyPresses(note)));
-				}
-				else if (mashViolations > 2)
-				{
-					// this is bad but fuck you
-					playerStrums.members[0].animation.play('static');
-					playerStrums.members[1].animation.play('static');
-					playerStrums.members[2].animation.play('static');
-					playerStrums.members[3].animation.play('static');
-					health -= 0.4;
-					trace('mash ' + mashing);
-					if (mashing != 0)
-						mashing = 0;
-				}
-				else
-					goodNoteHit(note, false); */
 		}
 	}
 
@@ -4395,6 +4393,19 @@ class PlayState extends MusicBeatState
 			}
 			if (!note.isSustainNote)
 				updateAccuracy();
+		}
+	}
+
+	/**
+	 * Returns true if the Bot Play should hit this note, and false if it shouldn't.
+	 * Don't embarass yourself by hitting Tricky notes, AI.
+	 * @param note The note to check.
+	 * @returns Whether the note should be hit by the Bot player.
+	 */
+	function isNoteSafe(note:Note) {
+		return switch(note.noteType) {
+			case "darkhalo": false;
+			default: true;
 		}
 	}
 
@@ -4534,6 +4545,19 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	function redScreenFlash():Void
+	{
+		// Fill the screen with red... THE COLOR OF BLOOD BWAHAHAHAHA
+		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.RED);
+		red.scrollFactor.set();
+		red.alpha = 1;
+		add(red);
+
+		// Fade the red screen out.
+		var DURATION = 0.5;
+		FlxTween.tween(red, {alpha: 0}, DURATION, {ease: FlxEase.quadInOut, type:PERSIST});
+	}
+
 	function lightningStrikeShit():Void
 	{
 		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
@@ -4555,7 +4579,7 @@ class PlayState extends MusicBeatState
 		super.stepHit();
 		
 		// ERIC: Hardcoding for song events is done here.
-		// Should really figure out how song events works.
+		// Should really figure out how to make these into song events.
 		if (curSong == 'TestA') {
 			
 			// Perform an event on a given step.
@@ -4572,11 +4596,22 @@ class PlayState extends MusicBeatState
 					dad.y += 150;
 					iconP2.changeIcon("sonic"); // Replace HP icon.
 					
+					// Eric: Made some new code to force these animations to keep playing
+					boyfriend.forceAnimation = "scared";
+					gf.forceAnimation = "scared";
+
+					// Fancy red screen flash for dramatic effect.
+					redScreenFlash();
+
 					// Hide the HUD for dramatic effect.
 					camHUD.visible = false;
 				case 92: // 23 x 4
 					// Re-enable the HUD.
 					camHUD.visible = true;
+				case 108:
+					// BF gets over his fear so he can sing..
+					boyfriend.forceAnimation = null;
+					gf.forceAnimation = null;
 				case 192: // 48 x 4
 					// Set enemy character to Dad.
 					var oldenemyx = PlayState.dad.x;
@@ -4587,6 +4622,9 @@ class PlayState extends MusicBeatState
 					dad.x -= 100; // Fix position.
 					dad.y -= 150;
 					iconP2.changeIcon("dad"); // Replace HP icon.
+
+					// Make sure he's playing the idle animation.
+					dad.playAnim("idle");
 			}
 		}
 

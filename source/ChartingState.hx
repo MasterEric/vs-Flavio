@@ -1829,10 +1829,12 @@ class ChartingState extends MusicBeatState
 						{
 							// We need to make CERTAIN vocals exist and are non-empty
 							// before we try to play them. Otherwise the game crashes.  
-							if (vocals != null && vocals.length > 0 && vocals._channel.__source.__backend.handle != null)
+							if (vocals != null && vocals.length > 0)
 							{
 								if (vocals.length != FlxG.sound.music.length) {
 									throw new Exception('ERROR: Vocal length does not match with music length! The song will crash during charting.');
+								} else if (vocals._channel != null) {
+									throw new Exception('ERROR: Vocals disintegrated or smth idk.');
 								} else {
 									lime.media.openal.AL.sourcef(vocals._channel.__source.__backend.handle, lime.media.openal.AL.PITCH, speed);
 								}

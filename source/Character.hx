@@ -17,6 +17,12 @@ class Character extends FlxSprite
 
 	public var holdTimer:Float = 0;
 
+	/**
+	 * While this value is non-null, the character will be forced
+	 * to play this animation and ignore other animations.
+	 */
+	public var forceAnimation:String = null;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
 	{
 		super(x, y);
@@ -151,6 +157,11 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
+		// ERIC: Force an animation for as long as this variable is set.
+		if (forceAnimation != null && animation.curAnim.name != forceAnimation) {
+			playAnim(forceAnimation, true);
+		}
+
 		if (!curCharacter.startsWith('bf'))
 		{
 			if (animation.curAnim.name.startsWith('sing'))
@@ -226,6 +237,12 @@ class Character extends FlxSprite
 			FlxG.log.warn(['Such alt animation doesnt exist: ' + AnimName]);
 			#end
 			AnimName = AnimName.split('-')[0];
+		}
+
+		// ERIC: Special forcedAnimation handling.
+		if (forceAnimation != null && AnimName != forceAnimation) {
+			trace('${curCharacter} canceled animation ${AnimName}: forced to play ${forceAnimation}');
+			return;
 		}
 
 		trace('${curCharacter} playing animation ${AnimName}: ${Force}');
