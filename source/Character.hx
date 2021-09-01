@@ -117,6 +117,19 @@ class Character extends FlxSprite
 				loadOffsetFile(curCharacter);
 	
 				playAnim('idle');
+
+			case 'flavio':
+				tex = Paths.getSparrowAtlas('flavio','shared',true);
+				frames = tex;
+				animation.addByPrefix('idle', 'flavio_idle', 24, false);
+				animation.addByPrefix('singUP', 'up', 24, false);
+				animation.addByPrefix('singRIGHT', 'right', 24, false);
+				animation.addByPrefix('singDOWN', 'down', 24, false);
+				animation.addByPrefix('singLEFT', 'left', 24, false);
+
+				loadOffsetFile(curCharacter);
+
+				playAnim('idle');
 		}
 
 		dance();

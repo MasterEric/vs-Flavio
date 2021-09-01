@@ -1,6 +1,9 @@
 package;
 
 
+import flixel.util.FlxSpriteUtil;
+import flixel.util.FlxGradient;
+import haxe.Timer;
 import LuaClass.LuaCamera;
 import LuaClass.LuaCharacter;
 import lime.media.openal.AL;
@@ -659,6 +662,10 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
+			case 'flavio':
+				dad.x += 80;
+				dad.y += 310;
+				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 		}
 
 		// REPOSITIONING PER STAGE
@@ -905,6 +912,8 @@ class PlayState extends MusicBeatState
 				add(fearBarText);
 				fear = 0.15;
 			case 'testb':
+				// Microphone has to go before Fear bar or it overlaps the UI.
+				createMicrophone();
 				// Only add the Fear bar on this song.
 				add(fearBarBG);
 				add(fearBar);
@@ -1079,6 +1088,62 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, releaseInput);
 		super.create();
+	}
+
+	var flavioMic:FlxSprite;
+	var flavioMicMask:FlxSprite;
+	function createMicrophone() {
+		flavioMicMask = new FlxSprite().loadGraphic(Paths.image('microphone', 'flavio'), false,
+			Std.int(boyfriend.width / 2), Std.int(boyfriend.height / 2));
+
+		flavioMic = new FlxSprite(Std.int(boyfriend.width / 2), Std.int(boyfriend.height / 2));
+
+		flavioMic.scale.set(0.45, 0.45);
+
+		flavioMic.x = dad.x + (dad.width / 3);
+		flavioMic.y = FLOAT_BASE;
+
+		// Pulsating color.
+		add(flavioMic);
+
+		// Initialize mask graphic.
+		floatMicrophone();
+	}
+
+	final COLOR_SPEED = 0.3;
+	final FLOAT_SPEED = 0.2;
+	final FLOAT_DISTANCE = 50;
+	final COLOR_DISTANCE = 20;
+
+	final COLOR_BASE = 270;
+	final FLOAT_BASE = 400;
+	function floatMicrophone() {
+		if (flavioMic != null) {
+			// Use this instead of curStep to make the mic move;
+			//
+			var curTime = Conductor.songPosition / 100;
+
+			// Movement (complete with nice easing) is done by taking the sine
+			// of the current song position.
+
+			// Change the position;
+			var targetPosY = FLOAT_BASE + Math.sin(curTime * FLOAT_SPEED) * FLOAT_DISTANCE;
+			flavioMic.y += (targetPosY - flavioMic.y) / 10;
+
+			// Change the color.
+			// var colorHue = COLOR_BASE + Math.sin(curTime * COLOR_SPEED) * COLOR_DISTANCE;
+			// flavioMic.color = flixel.util.FlxColor.fromHSB(colorHue, 1.0, 0.5);
+			var gradient:FlxSprite = FlxGradient.createGradientFlxSprite(Std.int(flavioMic.width), Std.int(flavioMic.height),
+				[0x882A00FF, 0x88D400FF], 1, Std.int(COLOR_SPEED * curTime), true);
+ 
+			// FlxSpriteUtil.alphaMaskFlxSprite(gradient, flavioMicMask, flavioMic);
+		} else {
+			trace('ERROR: Microphone was null, skipping floating animation.');
+		}
+	}
+
+	function floatFlavio() {
+
 	}
 
 	function setFear(value:Float) {
@@ -2779,6 +2844,8 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("curDecimalBeat", curDecimalBeat);
 		FlxG.watch.addQuick("curStep", curStep);
 
+		FlxG.watch.addQuick("curSongPos", Conductor.songPosition);
+
 		if (curSong == 'Fresh')
 		{
 			switch (curBeat)
@@ -2807,6 +2874,10 @@ class PlayState extends MusicBeatState
 					// FlxG.sound.music.stop();
 					// FlxG.switchState(new PlayState());
 			}
+		}
+
+		if (curSong == 'TestB') {
+			floatMicrophone();
 		}
 
 		if (health <= 0 && !cannotDie)

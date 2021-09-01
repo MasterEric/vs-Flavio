@@ -36,19 +36,21 @@ class LoadingState extends MusicBeatState
 	
 	override function create()
 	{
-		logo = new FlxSprite(-150, -100);
-		logo.frames = Paths.getSparrowAtlas('logoBumpin');
+		var LOGO_X = 0;
+		var LOGO_Y = 0;
+		logo = new FlxSprite(LOGO_X, LOGO_Y);
+		logo.frames = Paths.getSparrowAtlas('LogoBumpin', 'flavio');
 		logo.antialiasing = FlxG.save.data.antialiasing;
-		logo.animation.addByPrefix('bump', 'logo bumpin', 24);
+		logo.animation.addByPrefix('bump', 'logo bumin other edit', 24);
 		logo.animation.play('bump');
 		logo.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
-		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
-		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+		gfDance.frames = Paths.getSparrowAtlas('FlavioDancingTitle', 'flavio');
+		gfDance.animation.addByIndices('danceLeft', 'GF Dance Tile', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+		gfDance.animation.addByIndices('danceRight', 'GF Dance Tile', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = FlxG.save.data.antialiasing;
 		add(gfDance);
 		add(logo);

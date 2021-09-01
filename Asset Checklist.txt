@@ -1,0 +1,34 @@
+Asset Checklist
+---Title Screen---
+[X] Static Logo
+[X] Bumping Logo
+[X] Main Menu Animation (GF)
+---Main Menu---
+[] Custom Main Menu Background (Optional)
+[X] Story Week Text
+[] Song Names
+[] Lineart Character Sprites (Idle Animation Only)
+---Song---
+[] Stage Graphics
+[] Song 1 Cutscene
+[] Song 1 Instrumental
+[] Song 1 Voice
+[] Song 2 Instrumental
+[] Song 2 Voice
+[] Song 3 Instrumental
+[] Song 3 Voice
+[X] Character Sprites
+[] Character HP Icon (Normal and Losing)
+
+---Third Phase Change---
+[] Song 3 Cutscene
+[] Character Sprites (Last Phase)
+[] Character HP Icon (Normal and Losing) (Last Phase)
+
+---Optional---
+[] Main Menu Theme
+[] Sprites for Custom Note Types
+[] Song 4 Instrumental
+[] Song 4 Voice
+[] Song 4 Name
+	Song 4 is unlocked in free play by beating Story Mode on Hard.

@@ -24,16 +24,19 @@ class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
 
+	static function weekGraphics():Array<Dynamic>
+	{
+		return [
+			"week0",
+			"flavio"
+		];
+	}
+
 	static function weekData():Array<Dynamic>
 	{
 		return [
 			['Tutorial'],
-			// ['Bopeebo', 'Fresh', 'Dad Battle'],
-			// ['Spookeez', 'South', "Monster"],
-			// ['Pico', 'Philly Nice', "Blammed"],
-			// ['Satin Panties', "High", "Milf"],
-			// ['Cocoa', 'Eggnog', 'Winter Horrorland'],
-			// ['Senpai', 'Roses', 'Thorns']
+			['TestC', 'TestA', 'TestB']
 		];
 	}
 	var curDifficulty:Int = 1;
@@ -42,12 +45,7 @@ class StoryMenuState extends MusicBeatState
 
 	var weekCharacters:Array<Dynamic> = [
 		['', 'bf', 'gf'],
-		// ['dad', 'bf', 'gf'],
-		// ['spooky', 'bf', 'gf'],
-		// ['pico', 'bf', 'gf'],
-		// ['mom', 'bf', 'gf'],
-		// ['parents-christmas', 'bf', 'gf'],
-		// ['senpai', 'bf', 'gf']
+		['flavio', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/weekNames'));
@@ -68,21 +66,18 @@ class StoryMenuState extends MusicBeatState
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 
+	var weekBG:FlxSprite;
+	static final WEEK_BG_COLORS = [0xFFF9CF51, 0xFFD551F9];
+
 	function unlockWeeks():Array<Bool>
 	{
 		var weeks:Array<Bool> = [];
-		#if debug
-		for(i in 0...weekNames.length)
-			weeks.push(true);
-		return weeks;
-		#end
 		
+		// Auto-unlock Week 0.
+		weeks.push(true);
+		// Auto-unlock Week Flavio.
 		weeks.push(true);
 
-		for(i in 0...FlxG.save.data.weekUnlocked)
-			{
-				weeks.push(true);
-			}
 		return weeks;
 	}
 
@@ -123,7 +118,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
+		weekBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, WEEK_BG_COLORS[0]);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -138,9 +133,9 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 70");
 
-		for (i in 0...weekData().length)
+		for (i in 0...weekGraphics().length)
 		{
-			var weekThing:MenuItem = new MenuItem(0, yellowBG.y + yellowBG.height + 10, i);
+			var weekThing:MenuItem = new MenuItem(0, weekBG.y + weekBG.height + 10, weekGraphics()[i], i);
 			weekThing.y += ((weekThing.height + 20) * i);
 			weekThing.targetY = i;
 			grpWeekText.add(weekThing);
@@ -200,10 +195,10 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 150");
 
-		add(yellowBG);
+		add(weekBG);
 		add(grpWeekCharacters);
 
-		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height + 100, 0, "Tracks", 32);
+		txtTracklist = new FlxText(FlxG.width * 0.05, weekBG.x + weekBG.height + 100, 0, "Tracks", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
@@ -450,6 +445,11 @@ class StoryMenuState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
 		updateText();
+		updateWeekBG();
+	}
+
+	function updateWeekBG() {
+		weekBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, WEEK_BG_COLORS[curWeek]);
 	}
 
 	function updateText()

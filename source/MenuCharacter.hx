@@ -26,6 +26,7 @@ class MenuCharacter extends FlxSprite
 		'bf' => new CharacterSetting(0, -20, 1.0, true),
 		'gf' => new CharacterSetting(50, 80, 1.5, true),
 		'dad' => new CharacterSetting(-15, 130),
+		// 'flavio' => new CharacterSetting(-15, 130),
 		'spooky' => new CharacterSetting(20, 30),
 		'pico' => new CharacterSetting(0, 0, 1.0, true),
 		'mom' => new CharacterSetting(-30, 140, 0.85),
@@ -53,6 +54,7 @@ class MenuCharacter extends FlxSprite
 		animation.addByIndices('gf-left', 'GF Dancing Beat WHITE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		animation.addByIndices('gf-right', 'GF Dancing Beat WHITE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		animation.addByPrefix('dad', "Dad idle dance BLACK LINE", 24, false);
+		// animation.addByPrefix('flavio', "Flavio idle dance BLACK LINE", 24, false);
 		animation.addByIndices('spooky-left', 'spooky dance idle BLACK LINES', [0, 2, 6], "", 12, false);
 		animation.addByIndices('spooky-right', 'spooky dance idle BLACK LINES', [8, 10, 12, 14], "", 12, false);
 		animation.addByPrefix('pico', "Pico Idle Dance", 24, false);
@@ -68,7 +70,7 @@ class MenuCharacter extends FlxSprite
 	{
 		var sameCharacter:Bool = character == this.character;
 		this.character = character;
-		if (character == '')
+		if (character == '' || !settings.exists(character))
 		{
 			visible = false;
 			return;
@@ -81,7 +83,6 @@ class MenuCharacter extends FlxSprite
 		if (!sameCharacter) {
 			bopHead(true);
 		}
-
 		var setting:CharacterSetting = settings[character];
 		offset.set(setting.x, setting.y);
 		setGraphicSize(Std.int(width * setting.scale));
