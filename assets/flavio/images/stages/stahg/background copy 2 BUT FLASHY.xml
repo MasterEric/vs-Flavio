@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="background copy 2 BUT FLASHY.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="background copy 30000" x="0" y="0" width="1292" height="597" frameX="-42" frameY="0" frameWidth="1334" frameHeight="619"/>
+	<SubTexture name="background copy 30001" x="0" y="597" width="1290" height="599" frameX="0" frameY="-3" frameWidth="1334" frameHeight="619"/>
+	<SubTexture name="background copy 30002" x="0" y="1196" width="1290" height="599" frameX="-29" frameY="-20" frameWidth="1334" frameHeight="619"/>
+</TextureAtlas>

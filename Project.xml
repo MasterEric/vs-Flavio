@@ -16,32 +16,32 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
-
+	
 	<!-- ____________________________ Window Settings ___________________________ -->
-
+	
 	<!--These window settings apply to all targets-->
 	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" />
-
+	
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
-
+	
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
-
+	
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
-
+	
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
-
+	
 	<!-- _____________________________ Path Settings ____________________________ -->
-
+	
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
-
+	
 	<classpath name="source" />
-
+	
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	
@@ -54,13 +54,13 @@
 		<library name="shared"   preload="true" />
 		<library name="tutorial" preload="true" />
 		<!-- Goodbye default weeks.
-		<library name="week1"    preload="true" />
-		<library name="week2"    preload="true" />
-		<library name="week3"    preload="true" />
-		<library name="week4"    preload="true" />
-		<library name="week5"    preload="true" />
-		<library name="week6"    preload="true" />
-		<library name="sm"    preload="true" />
+			<library name="week1"    preload="true" />
+			<library name="week2"    preload="true" />
+			<library name="week3"    preload="true" />
+			<library name="week4"    preload="true" />
+			<library name="week5"    preload="true" />
+			<library name="week6"    preload="true" />
+			<library name="sm"    preload="true" />
 		-->
 		<!-- Hell yeah it's Flavio time. -->
 		<library name="flavio" preload="true" />
@@ -71,13 +71,13 @@
 		<library name="shared"   preload="false" />
 		<library name="tutorial" preload="false" />
 		<!-- Goodbye default weeks.
-		<library name="week1"    preload="false" />
-		<library name="week2"    preload="false" />
-		<library name="week3"    preload="false" />
-		<library name="week4"    preload="false" />
-		<library name="week5"    preload="false" />
-		<library name="week6"    preload="false" />
-		<library name="sm"    preload="false" />
+			<library name="week1"    preload="false" />
+			<library name="week2"    preload="false" />
+			<library name="week3"    preload="false" />
+			<library name="week4"    preload="false" />
+			<library name="week5"    preload="false" />
+			<library name="week6"    preload="false" />
+			<library name="sm"    preload="false" />
 		-->
 		<!-- Hell yeah it's Flavio time. -->
 		<library name="flavio" preload="false" />
@@ -90,31 +90,31 @@
 	<assets path="assets/tutorial" library="tutorial" exclude="*.ogg" if="web"/>
 	<assets path="assets/tutorial" library="tutorial" exclude="*.mp3" unless="web"/>
 	<!-- Goodbye default weeks.
-	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/sm"    library="sm"    exclude="*.ogg" if="web"/>
-	<assets path="assets/sm"    library="sm"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
+		<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
+		<assets path="assets/sm"    library="sm"    exclude="*.ogg" if="web"/>
+		<assets path="assets/sm"    library="sm"    exclude="*.mp3" unless="web"/>
 	-->
 	<!-- Hell yeah it's Flavio time. -->
 	<assets path="assets/flavio" library="flavio" exclude="*.mp3" unless="web"/>
-
+	
 	<!-- <assets path='example_mods' rename='mods' embed='false'/> -->
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<assets path='LICENSE' rename='LICENSE.txt' />
 	<!-- <template path='mods' /> -->
 	
 	<!-- <assets path="CHANGELOG.md" rename='changelog.txt'/> -->
-
+	
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
 		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
@@ -122,17 +122,26 @@
 	-->
 	<assets path="assets/fonts" embed='true'/>
 	<!-- _______________________________ Libraries ______________________________ -->
-
+	
+	<!-- Better debugging. Has to come before Flixel. -->
+	<haxelib name="crashdumper" />
+	<!-- Required for CrashDumper. -->
+	<haxedef name="safeMode"/>
+	<haxedef name="openfl-enable-handle-error" />
+	<haxedef name="HXCPP_CHECK_POINTER" />
+	<haxedef name="HXCPP_STACK_LINE" />
+	<haxedef name="HXCPP_STACK_TRACE"/>
+	
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />
-
+	
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
-
+	
 	<haxelib name="actuate" />
 	<haxelib name="extension-webm"/> <!-- Make sure to use https://github.com/KadeDev/extension-webm/ -->
-
+	
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<haxelib name="newgrounds"/>
@@ -141,7 +150,7 @@
 	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="linc_luajit"/>
 	<haxelib name="hxvm-luajit" if="desktop"/>
-	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
+	
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->

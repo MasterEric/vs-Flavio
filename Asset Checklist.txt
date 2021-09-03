@@ -4,30 +4,30 @@ Asset Checklist
 [X] Bumping Logo
 [X] Main Menu Animation (GF)
 ---Main Menu---
-[] Custom Main Menu Background (Optional)
 [X] Story Week Text
 [] Song Names
-[] Lineart Character Sprites (Idle Animation Only)
+[X] Lineart Character Sprites (Idle Animation Only)
 ---Song---
-[] Stage Graphics
-[] Song 1 Cutscene
-[] Song 1 Instrumental
-[] Song 1 Voice
-[] Song 2 Instrumental
-[] Song 2 Voice
+[X] Stage Graphics
+[X] Song 1 Cutscene
+[X] Song 1 Instrumental
+[X] Song 1 Voice
+[X] Song 2 Instrumental
+[X] Song 2 Voice
 [] Song 3 Instrumental
 [] Song 3 Voice
 [X] Character Sprites
-[] Character HP Icon (Normal and Losing)
+[X] Character HP Icon (Normal and Losing)
 
 ---Third Phase Change---
-[] Song 3 Cutscene
-[] Character Sprites (Last Phase)
-[] Character HP Icon (Normal and Losing) (Last Phase)
+[X] Song 3 Cutscene
+[X] Character Sprites (Last Phase)
+[X] Character HP Icon (Normal and Losing) (Last Phase)
 
 ---Optional---
 [] Main Menu Theme
-[] Sprites for Custom Note Types
+[] Custom Main Menu Background (Optional)
+[X] Sprites for Custom Note Types
 [] Song 4 Instrumental
 [] Song 4 Voice
 [] Song 4 Name

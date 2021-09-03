@@ -664,7 +664,7 @@ class PlayState extends MusicBeatState
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			case 'flavio':
 				dad.x += 80;
-				dad.y += 310;
+				dad.y += 210;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 		}
 
@@ -768,17 +768,6 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		// ERIC: My special caching functionality.
-		// There's probably a better way to write this.
-		switch(songLowercase) {
-			case "testa":
-				trace('Starting to load Sonic frame data into cache...');
-				// Special caching.
-				var frameData = Paths.getSparrowAtlas('sonic','shared',true);
-				Caching.frameCache.set('sonicCharacter', frameData);
-				trace('Done loading frame data.');
-		}
-
 		if (executeModchart)
 			{
 				new LuaCamera(camGame,"camGame").Register(ModchartState.lua);
@@ -833,7 +822,18 @@ class PlayState extends MusicBeatState
 
 		trace('generated');
 
-		// add(strumLine);
+		// ERIC: Change starting camera position.
+		switch(Stage.curStage) {
+			case 'flavioLand1':
+				camPos.x += 0;
+				camPos.y += 0;
+			case 'flavioLand2':
+				camPos.x += 0;
+				camPos.y += 0;
+			case 'flavioLand3':
+				camPos.x += 400;
+				camPos.y += 200;
+		}
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 
@@ -906,6 +906,8 @@ class PlayState extends MusicBeatState
 
 		switch (songLowercase) {
 			case 'testa':
+				// Microphone has to go before Fear bar or it overlaps the UI.
+				createMicrophone();
 				// Only add the Fear bar on this song.
 				add(fearBarBG);
 				add(fearBar);
@@ -914,6 +916,15 @@ class PlayState extends MusicBeatState
 			case 'testb':
 				// Microphone has to go before Fear bar or it overlaps the UI.
 				createMicrophone();
+				// Only add the Fear bar on this song.
+				add(fearBarBG);
+				add(fearBar);
+				add(fearBarText);
+				fear = 0;
+			case 'testc':
+				// Microphone has to go before Fear bar or it overlaps the UI.
+				createMicrophone();
+				flavioMic.visible = true;
 				// Only add the Fear bar on this song.
 				add(fearBarBG);
 				add(fearBar);
@@ -1030,6 +1041,7 @@ class PlayState extends MusicBeatState
 
 		trace('starting');
 
+		// ERIC: Introductions are handled here.
 		if (isStoryMode)
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
@@ -1091,32 +1103,33 @@ class PlayState extends MusicBeatState
 	}
 
 	var flavioMic:FlxSprite;
-	var flavioMicMask:FlxSprite;
 	function createMicrophone() {
-		flavioMicMask = new FlxSprite().loadGraphic(Paths.image('microphone', 'flavio'), false,
+		flavioMic = new FlxSprite().loadGraphic(Paths.image('microphone', 'flavio'), false,
 			Std.int(boyfriend.width / 2), Std.int(boyfriend.height / 2));
 
-		flavioMic = new FlxSprite(Std.int(boyfriend.width / 2), Std.int(boyfriend.height / 2));
-
-		flavioMic.scale.set(0.45, 0.45);
+		flavioMic.scale.set(0.75, 0.75);
 
 		flavioMic.x = dad.x + (dad.width / 3);
-		flavioMic.y = FLOAT_BASE;
+		flavioMic.y = MIC_FLOAT_BASE;
 
-		// Pulsating color.
+		// Starts as INVISIBLE.
+		flavioMic.visible = false;
 		add(flavioMic);
 
 		// Initialize mask graphic.
 		floatMicrophone();
 	}
 
-	final COLOR_SPEED = 0.3;
-	final FLOAT_SPEED = 0.2;
-	final FLOAT_DISTANCE = 50;
-	final COLOR_DISTANCE = 20;
+	final MIC_COLOR_SPEED = 0.3;
+	final MIC_FLOAT_SPEED = 0.2;
+	final MIC_ANGLE_SPEED = 0.3;
+	final MIC_FLOAT_DISTANCE = 50;
+	final MIC_COLOR_DISTANCE = 20;
+	final MIC_ANGLE_DISTANCE = 22.5;
 
-	final COLOR_BASE = 270;
-	final FLOAT_BASE = 400;
+	final MIC_COLOR_BASE = 270;
+	final MIC_FLOAT_BASE = 400 - 300;
+	final MIC_ANGLE_BASE = 0;
 	function floatMicrophone() {
 		if (flavioMic != null) {
 			// Use this instead of curStep to make the mic move;
@@ -1127,23 +1140,56 @@ class PlayState extends MusicBeatState
 			// of the current song position.
 
 			// Change the position;
-			var targetPosY = FLOAT_BASE + Math.sin(curTime * FLOAT_SPEED) * FLOAT_DISTANCE;
+			var targetPosY = MIC_FLOAT_BASE + Math.sin(curTime * MIC_FLOAT_SPEED) * MIC_FLOAT_DISTANCE;
 			flavioMic.y += (targetPosY - flavioMic.y) / 10;
+			var targetAngle = MIC_ANGLE_BASE + Math.sin(curTime * MIC_ANGLE_SPEED) * MIC_ANGLE_DISTANCE;
+			flavioMic.angle += (targetAngle - flavioMic.angle) / 10;
 
 			// Change the color.
-			// var colorHue = COLOR_BASE + Math.sin(curTime * COLOR_SPEED) * COLOR_DISTANCE;
-			// flavioMic.color = flixel.util.FlxColor.fromHSB(colorHue, 1.0, 0.5);
-			var gradient:FlxSprite = FlxGradient.createGradientFlxSprite(Std.int(flavioMic.width), Std.int(flavioMic.height),
-				[0x882A00FF, 0x88D400FF], 1, Std.int(COLOR_SPEED * curTime), true);
- 
-			// FlxSpriteUtil.alphaMaskFlxSprite(gradient, flavioMicMask, flavioMic);
+			var colorHue = MIC_COLOR_BASE + Math.sin(curTime * MIC_COLOR_SPEED) * MIC_COLOR_DISTANCE;
+			flavioMic.color = flixel.util.FlxColor.fromHSB(colorHue, 1.0, 0.5);
 		} else {
 			trace('ERROR: Microphone was null, skipping floating animation.');
 		}
 	}
 
-	function floatFlavio() {
+	final CHAR_FLOAT_SPEED = 0.3;
+	final CHAR_FLOAT_DISTANCE = 30;
 
+	final CHAR_FLOAT_BASE = 400 - 300;
+	function floatFlavio() {
+		if (dad.curCharacter == "flavioPissed") {
+			// Use this instead of curStep to make the mic move;
+			//
+			var curTime = Conductor.songPosition / 100;
+
+			// Movement (complete with nice easing) is done by taking the sine
+			// of the current song position.
+
+			// Change the position;
+			var targetPosY = CHAR_FLOAT_BASE + Math.sin(curTime * CHAR_FLOAT_SPEED) * CHAR_FLOAT_DISTANCE;
+			dad.y += (targetPosY - dad.y) / 10;
+			// var targetAngle = CHAR_ANGLE_BASE + Math.sin(curTime * CHAR_ANGLE_SPEED) * CHAR_ANGLE_DISTANCE;
+			// dad.angle += (targetAngle - dad.angle) / 10;
+		}
+	}
+
+	final WALL_FLOAT_SPEED = 0.2;
+	final WALL_FLOAT_DISTANCE = 30;
+
+	final WALL_FLOAT_BASE = -200;
+	function floatWall() {
+		if (Stage.curStage == "flavioLand3") {
+			// Use this instead of curStep to make the wall move;
+			var curTime = Conductor.songPosition / 100;
+
+			// Movement (complete with nice easing) is done by taking the sine
+			// of the current song position.
+
+			// Change the position;
+			var targetPosY = WALL_FLOAT_BASE + Math.sin(curTime * WALL_FLOAT_SPEED) * WALL_FLOAT_DISTANCE;
+			Stage.swagBacks['wall'].y += (targetPosY - Stage.swagBacks['wall'].y) / 10;
+		}
 	}
 
 	function setFear(value:Float) {
@@ -1544,6 +1590,10 @@ class PlayState extends MusicBeatState
 			ana.nearestNote = [];
 			// ERIC: Need to figure out which code handles misses in which circumstances.
 			health -= 0.20 + (0.2 * fear * FEAR_FACTOR);
+			// ERIC: Increase fear level upon missing any note.
+			if (fear < 1.0) {
+				fear += 0.05;
+			}
 		}
 	}
 
@@ -2554,6 +2604,10 @@ class PlayState extends MusicBeatState
 			}
 			#end
 		}
+
+		if (FlxG.keys.justPressed.THREE) {
+				FlxG.switchState(new VideoCutsceneState(null, "stage1cutscene"));
+		}
 		
 		if(FlxG.keys.justPressed.TWO && songStarted) { //Go 10 seconds into the future, credit: Shadow Mario#9396
 			if (!usedTimeTravel && Conductor.songPosition + 10000 < FlxG.sound.music.length) 
@@ -2876,8 +2930,10 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == 'TestB') {
+		if (curSong == 'TestA' || curSong == 'TestB' || curSong == 'TestC') {
 			floatMicrophone();
+			floatFlavio();
+			floatWall();
 		}
 
 		if (health <= 0 && !cannotDie)
@@ -3245,6 +3301,9 @@ class PlayState extends MusicBeatState
 									{
 										// ERIC: Player loses health for missing a long note.
 										health -= 0.15 + (0.2 * fear * FEAR_FACTOR); // give a health punishment for failing a LN
+										if (fear < 1.0) {
+											fear += 0.05;
+										}
 										trace("hold fell over at the start");
 										for (i in daNote.children)
 										{
@@ -3275,6 +3334,9 @@ class PlayState extends MusicBeatState
 										{
 											// ERIC: When is this called?
 											health -= 0.15 + (0.2 * fear * FEAR_FACTOR);
+											if (fear < 1.0) {
+												fear += 0.05;
+											}
 										}
 									}
 								}
@@ -3300,6 +3362,9 @@ class PlayState extends MusicBeatState
 								if (daNote.isParent && daNote.visible)
 								{
 									health -= 0.15 + (0.2 * fear * FEAR_FACTOR); // give a health punishment for failing a LN
+									if (fear < 1.0) {
+										fear += 0.05;
+									}
 									trace("hold fell over at the start");
 									for (i in daNote.children)
 									{
@@ -3331,6 +3396,9 @@ class PlayState extends MusicBeatState
 										// Only punish if the note was safe to hit.
 										if (isNoteSafe(daNote)) {
 											health -= 0.15 + (0.2 * fear * FEAR_FACTOR);
+											if (fear < 1.0) {
+												fear += 0.05;
+											}
 										}
 									}
 								}
@@ -3669,6 +3737,9 @@ class PlayState extends MusicBeatState
 				combo = 0;
 				misses++;
 				health -= 0.1 + (0.2 * fear * FEAR_FACTOR);
+				if (fear < 1.0) {
+					fear += 0.05;
+				}
 				ss = false;
 				shits++;
 				if (FlxG.save.data.accuracyMod == 0)
@@ -3677,6 +3748,9 @@ class PlayState extends MusicBeatState
 				daRating = 'bad';
 				score = 0;
 				health -= 0.06 + (0.2 * fear * FEAR_FACTOR);
+				if (fear < 1.0) {
+					fear += 0.05;
+				}
 				ss = false;
 				bads++;
 				if (FlxG.save.data.accuracyMod == 0)
@@ -4534,17 +4608,19 @@ class PlayState extends MusicBeatState
 	 */
 	function isNoteSafe(note:Note) {
 		return switch(note.noteType) {
-			case "darkhalo": false;
+			case "glitch": false;
 			default: true;
 		}
 	}
 
 	function customNoteHit(note:Note) {
 		switch(note.noteType) {
-			case "darkhalo":
-				// Health Penalty. Max health is 200%.
-				// health -= 0.35 * 2;
-				health = 0;
+			case "glitch":
+				// Hitting a glitch note counts as a miss, and increases Fear by 5x the normal amount.
+				health -= 0.20 + (0.2 * fear * FEAR_FACTOR);
+				if (fear < 1.0) {
+					fear += 0.25;
+				}
 
 				boyfriend.playAnim('sing' + dataSuffix[note.noteData] + 'miss', true);
 
@@ -4716,19 +4792,22 @@ class PlayState extends MusicBeatState
 			// Note: 4 steps makes a beat.
 			switch(curStep) {
 				case 74: // 18.5 x 4
-					// Set enemy character to Sonic.
+					// Set enemy character to angry Flavio.
 					var oldenemyx = PlayState.dad.x;
 					var oldenemyy = PlayState.dad.y;
 					removeObject(PlayState.dad); // Remove old dad from stage.
-					dad = new Character(oldenemyx, oldenemyy, "sonic"); // Create new dad.
+					dad = new Character(oldenemyx, oldenemyy, "flavioPissed"); // Create new dad.
 					addObject(PlayState.dad); // Add him in.
-					dad.x += 100; // Fix position.
-					dad.y += 150;
-					iconP2.changeIcon("sonic"); // Replace HP icon.
+					dad.y -= 300; // Lift position.
+					iconP2.changeIcon("flavioPissed"); // Replace HP icon.
 					
 					// Eric: Made some new code to force these animations to keep playing
+					dad.forceAnimation = "scream";
 					boyfriend.forceAnimation = "scared";
 					gf.forceAnimation = "scared";
+
+					// Show the microphone.
+					flavioMic.visible = true;
 
 					// Forcibly increase fear meter.
 					if (fear < 0.35) {
@@ -4742,6 +4821,8 @@ class PlayState extends MusicBeatState
 					camHUD.visible = false;
 				case 92: // 23 x 4
 					// Re-enable the HUD.
+					// Stop screaming.
+					dad.forceAnimation = null;
 					camHUD.visible = true;
 				case 108:
 					// BF gets over his fear so he can sing..
@@ -4752,11 +4833,14 @@ class PlayState extends MusicBeatState
 					var oldenemyx = PlayState.dad.x;
 					var oldenemyy = PlayState.dad.y;
 					removeObject(PlayState.dad); // Remove old dad from stage.
-					dad = new Character(oldenemyx, oldenemyy, "dad"); // Create new dad.
+					dad = new Character(oldenemyx, oldenemyy, "flavio"); // Create new dad.
 					addObject(PlayState.dad); // Add him in.
-					dad.x -= 100; // Fix position.
-					dad.y -= 150;
-					iconP2.changeIcon("dad"); // Replace HP icon.
+					dad.y = 310 + 100; // Fix position.
+
+					iconP2.changeIcon("flavio"); // Replace HP icon.
+
+					// Hide the microphone.
+					flavioMic.visible = false;
 
 					// Make sure he's playing the idle animation.
 					dad.playAnim("idle");

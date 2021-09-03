@@ -30,6 +30,8 @@ class WebmHandler
 	{
 		io = new WebmIoFile(vidPath);
 		webm = new WebmPlayer();
+		// Note, you can't pass false here,
+		// audio playback does NOT WORK on Windows.
 		webm.fuck(io, false);
 		webm.addEventListener(WebmEvent.PLAY, function(e) {
 			onPlay();

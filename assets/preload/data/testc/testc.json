@@ -4,7 +4,8 @@
     "bpm": 100.0,
     "needsVoices": true,
     "player1": "bf",
-    "player2": "flavio",
+    "player2": "flavioPissed",
+    "stage": "flavioLand3",
     "speed": 1.0,
     "notes": [
       {

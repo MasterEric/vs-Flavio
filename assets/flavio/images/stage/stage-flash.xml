@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="stage-flash.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Animation0000" x="0" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0001" x="1899" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0002" x="0" y="765" width="1899" height="765"/>
+	<SubTexture name="Animation0003" x="0" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0004" x="1899" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0005" x="0" y="765" width="1899" height="765"/>
+	<SubTexture name="Animation0006" x="0" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0007" x="1899" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0008" x="0" y="765" width="1899" height="765"/>
+	<SubTexture name="Animation0009" x="0" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0010" x="1899" y="0" width="1899" height="765"/>
+	<SubTexture name="Animation0011" x="0" y="765" width="1899" height="765"/>
+</TextureAtlas>

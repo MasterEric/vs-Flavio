@@ -268,19 +268,25 @@ class Note extends FlxSprite
 
 		// Else, custom note type is not null! Override the existing note sprite.
 		switch(this.noteType) {
-			case "darkhalo":
-				frames = Paths.getSparrowAtlas('notes/DarkHaloNote');
+			case "glitch":
+				frames = Paths.getSparrowAtlas('notes/Glitch_Notes');
 
-				for (i in 0...4)
-				{
-					animation.addByPrefix(dataColor[i] + 'Scroll', dataColor[i] + ' Note'); // Normal notes
-				}
+				animation.remove('purpleScroll');
+				animation.addByPrefix('purpleScroll', 'left');
+				animation.remove('blueScroll');
+				animation.addByPrefix('blueScroll', 'down');
+				animation.remove('greenScroll');
+				animation.addByPrefix('greenScroll', 'up');
+				animation.remove('redScroll');
+				animation.addByPrefix('redScroll', 'right');
 
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				
 				antialiasing = FlxG.save.data.antialiasing;
 		}
+
+		animation.play(dataColor[noteData] + 'Scroll');
 	}
 
 	override function update(elapsed:Float)

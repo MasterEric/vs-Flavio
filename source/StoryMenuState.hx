@@ -36,7 +36,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		return [
 			['Tutorial'],
-			['TestC', 'TestA', 'TestB']
+			['SongA', 'SongB']
 		];
 	}
 	var curDifficulty:Int = 1;
@@ -374,9 +374,14 @@ class StoryMenuState extends MusicBeatState
 			PlayState.SONG = Song.conversionChecks(Song.loadFromJson(poop, PlayState.storyPlaylist[0]));
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
-			new FlxTimer().start(1, function(tmr:FlxTimer)
-			{
-				LoadingState.loadAndSwitchState(new PlayState(), true);
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				if (PlayState.SONG.introCutscene != "") {
+					// Intro cutscene.
+					VideoCutsceneState.loadAndPlayCutsceneAndSwitchState(new PlayState(), PlayState.SONG.introCutscene);
+				} else {
+					// No intro cutscene.
+					LoadingState.loadAndSwitchState(new PlayState(), true);
+				}
 			});
 		}
 	}

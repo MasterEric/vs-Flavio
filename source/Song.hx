@@ -36,9 +36,11 @@ typedef SwagSong =
 	var player1:String;
 	var player2:String;
 	var gfVersion:String;
-	var noteStyle:String;
 	var stage:String;
-	var validScore:Bool;
+
+	var ?noteStyle:String;
+	var ?validScore:Bool;
+	var ?introCutscene:String;
 }
 
 class Song
@@ -227,8 +229,21 @@ class Song
 	public static function parseJSONshit(rawJson:String):SwagSong
 	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
-		swagShit.validScore = true;
+    /**
+     * Default values.
+     */
 
+		 if (swagShit.noteStyle == null) {
+      swagShit.noteStyle = "normal";
+    }
+
+    if (swagShit.validScore == null) {
+      swagShit.validScore = true;
+    }
+
+		if (swagShit.introCutscene == null) {
+      swagShit.introCutscene = "";
+    }
 
 		// conversion stuff
 		for (section in swagShit.notes) 

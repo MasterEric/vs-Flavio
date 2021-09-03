@@ -2330,7 +2330,9 @@ class ChartingState extends MusicBeatState
 			var i = pressArray[p];
 			if (i && !delete)
 			{
-				addNote(new Note(Conductor.songPosition,p));
+				var newNote = new Note(Conductor.songPosition,p);
+				newNote.setNoteType(FlxG.keys.pressed.ALT ? "glitch" : null);
+				addNote(newNote);
 			}
 		}
 
@@ -3186,10 +3188,14 @@ class ChartingState extends MusicBeatState
 		var noteData = Math.floor(FlxG.mouse.x / GRID_SIZE);
 		var noteSus = 0;
 
-		if (n != null)
-			section.sectionNotes.push([n.strumTime, n.noteData, n.sustainLength, false, TimingStruct.getBeatFromTime(n.strumTime)]);
-		else
-			section.sectionNotes.push([noteStrum, noteData, noteSus, false, TimingStruct.getBeatFromTime(noteStrum)]);
+		// If Shift is held or the parent note is custom, place a custom note.
+		var noteType = FlxG.keys.pressed.ALT ? "glitch" : null;
+
+		if (n != null) {
+			section.sectionNotes.push([n.strumTime, n.noteData, n.sustainLength, false, TimingStruct.getBeatFromTime(n.strumTime), n.noteType]);
+		} else {
+			section.sectionNotes.push([noteStrum, noteData, noteSus, false, TimingStruct.getBeatFromTime(noteStrum), noteType]);
+		}
 
 		var thingy = section.sectionNotes[section.sectionNotes.length - 1];
 
@@ -3200,6 +3206,7 @@ class ChartingState extends MusicBeatState
 		if (n == null)
 		{
 			var note:Note = new Note(noteStrum, noteData % 4,null,false,true,TimingStruct.getBeatFromTime(noteStrum));
+			note.setNoteType(noteType);
 			note.rawNoteData = noteData;
 			note.sustainLength = noteSus;
 			note.setGraphicSize(Math.floor(GRID_SIZE), Math.floor(GRID_SIZE));

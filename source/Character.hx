@@ -96,28 +96,6 @@ class Character extends FlxSprite
 				// Flip Boyfriend so he faces the opponent!
 				flipX = true;
 
-			case 'sonic':
-				// Load the character sprites.
-				if (Caching.frameCache.get('sonicCharacter') != null) {
-					tex = Caching.frameCache.get('sonicCharacter');
-				} else {
-					tex = Paths.getSparrowAtlas('sonic','shared',true);
-				}
-				frames = tex;
-
-				animation.addByPrefix('idle', 'SONICmoveIDLE', 24);
-				animation.addByPrefix('singUP', 'SONICmoveUP', 24);
-				animation.addByPrefix('singRIGHT', 'SONICmoveRIGHT', 24);
-				animation.addByPrefix('singDOWN', 'SONICmoveDOWN', 24);
-				animation.addByPrefix('singLEFT', 'SONICmoveLEFT', 24);
-				// Setting a down note to play an Alt note makes him laugh.
-				animation.addByPrefix('singDOWN-alt', 'SONIClaugh', 24);
-				animation.addByPrefix('singLAUGH', 'SONIClaugh', 24);
-				
-				loadOffsetFile(curCharacter);
-	
-				playAnim('idle');
-
 			case 'flavio':
 				tex = Paths.getSparrowAtlas('flavio','shared',true);
 				frames = tex;
@@ -126,6 +104,30 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'right', 24, false);
 				animation.addByPrefix('singDOWN', 'down', 24, false);
 				animation.addByPrefix('singLEFT', 'left', 24, false);
+
+				// flavio needs to be twice bf's size/height
+				scale.set(1.6, 1.6);
+
+				loadOffsetFile(curCharacter);
+
+				playAnim('idle');
+
+			case 'flavioPissed':
+				tex = Paths.getSparrowAtlas('flavioPissed','shared',true);
+				frames = tex;
+				animation.addByPrefix('idle', 'Flavio', 24, false);
+				animation.addByPrefix('singUP', 'Flav_Up', 24, false);
+				animation.addByPrefix('singRIGHT', 'Flav_Right', 24, false);
+				animation.addByPrefix('singDOWN', 'Flav_Down', 24, false);
+				animation.addByPrefix('singLEFT', 'Flav_Left', 24, false);
+				animation.addByPrefix('scream', 'Screm', 24, false);
+				animation.addByPrefix('singUP-alt', 'Screm', 24, false);
+				animation.addByPrefix('singRIGHT-alt', 'Screm', 24, false);
+				animation.addByPrefix('singDOWN-alt', 'Screm', 24, false);
+				animation.addByPrefix('singLEFT-alt', 'Screm', 24, false);
+
+				// flavio needs to be twice bf's size/height
+				scale.set(1.6, 1.6);
 
 				loadOffsetFile(curCharacter);
 

@@ -1,4 +1,6 @@
 Tutorial:gf:0
-TestA:flavio:1
+TestA:flavioPissed:1
 TestB:flavio:1
 TestC:flavio:1
+SongA:flavio:2
+SongB:flavio:2

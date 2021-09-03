@@ -5,7 +5,7 @@
         "endTime": 2400,
         "sectionNotes": [
           [0, 2, 0, false, 0],
-          [0, 0, 0, false, 1, "darkhalo"],
+          [0, 0, 0, false, 1, "glitch"],
           [600, 3, 450, false, 1],
           [1200, 3, 600, false, 2]
         ],
@@ -17,7 +17,7 @@
         "endTime": 4800,
         "sectionNotes": [
           [2400, 2, 0, false, 4],
-          [3000, 0, 0, false, 5, "darkHalo"],
+          [3000, 0, 0, false, 5, "glitch"],
           [3000, 3, 450, false, 5],
           [3600, 3, 600, false, 6]
         ],
@@ -42,9 +42,9 @@
       {
         "lengthInSteps": 16,
         "sectionNotes": [
-          [10209.8, 1, 0, true, 18.75, "darkhalo"],
-          [10432.0222222222, 1, 0, true, 19.25, "darkhalo"],
-          [10654.2444444444, 1, 0, true, 19.75, "darkhalo"]
+          [10209.8, 1, 0, true, 18.75, "glitch"],
+          [10432.0222222222, 1, 0, true, 19.25, "glitch"],
+          [10654.2444444444, 1, 0, true, 19.75, "glitch"]
         ],
         "altAnim": true,
         "endTime": 10765.3555555556,
@@ -54,10 +54,10 @@
       {
         "lengthInSteps": 16,
         "sectionNotes": [
-          [10876.4666666667, 1, 0, true, 20.25, "darkhalo"],
-          [11098.6888888889, 1, 0, true, 20.75, "darkhalo"],
-          [11320.9111111111, 1, 0, true, 21.25, "darkhalo"],
-          [11543.1333333333, 1, 0, true, 21.75, "darkhalo"]
+          [10876.4666666667, 1, 0, true, 20.25, "glitch"],
+          [11098.6888888889, 1, 0, true, 20.75, "glitch"],
+          [11320.9111111111, 1, 0, true, 21.25, "glitch"],
+          [11543.1333333333, 1, 0, true, 21.75, "glitch"]
         ],
         "altAnim": true,
         "endTime": 12543.1333333333,
@@ -117,12 +117,13 @@
         "type": "BPM Change"
       }
     ],
+    "stage": "flavioLand1",
     "chartVersion": "KE1",
     "song": "TestA",
     "needsVoices": true,
     "validScore": true,
     "noteStyle": "normal",
     "bpm": 100,
-    "speed": 3
+    "speed": 1.5
   }
 }
