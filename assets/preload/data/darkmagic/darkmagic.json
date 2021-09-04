@@ -1,11 +1,5 @@
 {
   "song": {
-    "song": "SongB",
-    "bpm": 100.0,
-    "needsVoices": true,
-    "player1": "bf",
-    "player2": "flavio",
-    "speed": 1.0,
     "notes": [
       {
         "lengthInSteps": 16,
@@ -313,7 +307,22 @@
           [75600.0, 1, 600.0]
         ]
       }
+    ],
+    "song": "DarkMagic",
+    "stage": "flavioLand2",
+    "bpm": 125.0,
+    "needsVoices": true,
+    "player1": "bf",
+    "player2": "flavio",
+    "speed": 1.0,
+    "chartVersion": "KE1",
+    "eventObjects": [
+      {
+        "name": "Init BPM",
+        "position": 0,
+        "value": 125,
+        "type": "BPM Change"
+      }
     ]
-  },
-  "generatedBy": "SNIFF ver.6"
+  }
 }

@@ -126,6 +126,19 @@ class MainMenuState extends MusicBeatState
 		else
 			controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
 
+		// If you beat Flavio on Hard, you deserve something special.
+		if (FlxG.save.data.flavioOwned) {
+			var trophy:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('trophy', 'flavio'));
+			trophy.scrollFactor.x = 0;
+			trophy.scrollFactor.y = 0;
+			trophy.scale.set(0.3, 0.3);
+			trophy.updateHitbox();
+			trophy.x = 1280 - trophy.width - 32;
+			trophy.y = 720 - trophy.height - 32;
+			trophy.antialiasing = FlxG.save.data.antialiasing;
+			add(trophy);
+		}
+
 		changeItem();
 
 		super.create();

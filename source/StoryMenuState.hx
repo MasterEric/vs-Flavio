@@ -36,7 +36,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		return [
 			['Tutorial'],
-			['SongA', 'SongB']
+			['Psychic', 'DarkMagic', 'Breakdown']
 		];
 	}
 	var curDifficulty:Int = 1;
@@ -65,6 +65,8 @@ class StoryMenuState extends MusicBeatState
 	var sprDifficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
+
+	var isCutscene:Bool = false;
 
 	var weekBG:FlxSprite;
 	static final WEEK_BG_COLORS = [0xFFF9CF51, 0xFFD551F9];
@@ -374,15 +376,24 @@ class StoryMenuState extends MusicBeatState
 			PlayState.SONG = Song.conversionChecks(Song.loadFromJson(poop, PlayState.storyPlaylist[0]));
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
-			new FlxTimer().start(1, function(tmr:FlxTimer) {
-				if (PlayState.SONG.introCutscene != "") {
-					// Intro cutscene.
-					VideoCutsceneState.loadAndPlayCutsceneAndSwitchState(new PlayState(), PlayState.SONG.introCutscene);
-				} else {
-					// No intro cutscene.
-					LoadingState.loadAndSwitchState(new PlayState(), true);
-				}
-			});
+
+			var video:MP4Handler = new MP4Handler();
+
+			if (PlayState.SONG.introCutscene != "" && !isCutscene) // Checks if the current week is Tutorial and cutscene not already playing.
+			{
+					video.playMP4(Paths.video(PlayState.SONG.introCutscene), new PlayState()); 
+					isCutscene = true;
+			}
+			else
+			{
+					new FlxTimer().start(1, function(tmr:FlxTimer)
+					{
+							if (isCutscene)
+									video.onVLCComplete();
+			
+							LoadingState.loadAndSwitchState(new PlayState(), true);
+					});
+			}
 		}
 	}
 

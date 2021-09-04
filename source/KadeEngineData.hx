@@ -7,7 +7,10 @@ class KadeEngineData
     public static function initSave()
     {
     if (FlxG.save.data.weekUnlocked == null)
-			FlxG.save.data.weekUnlocked = 7;
+			FlxG.save.data.weekUnlocked = 1;
+
+		if (FlxG.save.data.flavioOwned == null)
+			FlxG.save.data.flavioOwned = false;
 
 		if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;

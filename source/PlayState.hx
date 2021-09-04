@@ -905,7 +905,7 @@ class PlayState extends MusicBeatState
 			fearBarBG.y - fearBarText.height / 2);
 
 		switch (songLowercase) {
-			case 'testa':
+			case 'breakdown':
 				// Microphone has to go before Fear bar or it overlaps the UI.
 				createMicrophone();
 				// Only add the Fear bar on this song.
@@ -913,23 +913,6 @@ class PlayState extends MusicBeatState
 				add(fearBar);
 				add(fearBarText);
 				fear = 0.15;
-			case 'testb':
-				// Microphone has to go before Fear bar or it overlaps the UI.
-				createMicrophone();
-				// Only add the Fear bar on this song.
-				add(fearBarBG);
-				add(fearBar);
-				add(fearBarText);
-				fear = 0;
-			case 'testc':
-				// Microphone has to go before Fear bar or it overlaps the UI.
-				createMicrophone();
-				flavioMic.visible = true;
-				// Only add the Fear bar on this song.
-				add(fearBarBG);
-				add(fearBar);
-				add(fearBarText);
-				fear = 0;
 		}
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
@@ -2604,10 +2587,6 @@ class PlayState extends MusicBeatState
 			}
 			#end
 		}
-
-		if (FlxG.keys.justPressed.THREE) {
-				FlxG.switchState(new VideoCutsceneState(null, "stage1cutscene"));
-		}
 		
 		if(FlxG.keys.justPressed.TWO && songStarted) { //Go 10 seconds into the future, credit: Shadow Mario#9396
 			if (!usedTimeTravel && Conductor.songPosition + 10000 < FlxG.sound.music.length) 
@@ -2930,7 +2909,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == 'TestA' || curSong == 'TestB' || curSong == 'TestC') {
+		if (curSong == 'Breakdown') {
 			floatMicrophone();
 			floatFlavio();
 			floatWall();
@@ -3491,7 +3470,8 @@ class PlayState extends MusicBeatState
 					}
 			}
 		
-
+	
+	var isCutscene = false;
 	function endSong():Void
 	{
 		endingSong = true;
@@ -3611,6 +3591,10 @@ class PlayState extends MusicBeatState
 					}
 
 					StoryMenuState.unlockNextWeek(storyWeek);
+
+					if (SONG.song == "Breakdown" && storyDifficulty == 2) {
+						FlxG.save.data.flavioOwned = true;
+					}
 				}
 				else
 				{
@@ -3647,7 +3631,28 @@ class PlayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
-					LoadingState.loadAndSwitchState(new PlayState());
+					var video:MP4Handler = new MP4Handler();
+
+					// Load cutscene for next song.
+					if (PlayState.SONG.introCutscene != "" && !isCutscene) // Checks if the current week is Tutorial and cutscene not already playing.
+					{
+							video.playMP4(Paths.video(PlayState.SONG.introCutscene), new PlayState()); 
+							isCutscene = true;
+
+							// A quick fix.
+							camHUD.visible = false;
+					}
+					else
+					{
+							new FlxTimer().start(1, function(tmr:FlxTimer)
+							{
+									if (isCutscene)
+											video.onVLCComplete();
+					
+									LoadingState.loadAndSwitchState(new PlayState(), true);
+							});
+					}
+
 					clean();
 				}
 			}
@@ -4640,6 +4645,7 @@ class PlayState extends MusicBeatState
 				}
 			default:
 				trace("Bad custom note type!");
+				trace('Got ${note.noteType}');
 		}
 	}
 
@@ -4783,77 +4789,6 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
-		
-		// ERIC: Hardcoding for song events is done here.
-		// Should really figure out how to make these into song events.
-		if (curSong == 'TestA') {
-			
-			// Perform an event on a given step.
-			// Note: 4 steps makes a beat.
-			switch(curStep) {
-				case 74: // 18.5 x 4
-					// Set enemy character to angry Flavio.
-					var oldenemyx = PlayState.dad.x;
-					var oldenemyy = PlayState.dad.y;
-					removeObject(PlayState.dad); // Remove old dad from stage.
-					dad = new Character(oldenemyx, oldenemyy, "flavioPissed"); // Create new dad.
-					addObject(PlayState.dad); // Add him in.
-					dad.y -= 300; // Lift position.
-					iconP2.changeIcon("flavioPissed"); // Replace HP icon.
-					
-					// Eric: Made some new code to force these animations to keep playing
-					dad.forceAnimation = "scream";
-					boyfriend.forceAnimation = "scared";
-					gf.forceAnimation = "scared";
-
-					// Show the microphone.
-					flavioMic.visible = true;
-
-					// Forcibly increase fear meter.
-					if (fear < 0.35) {
-						setFear(0.35);
-					}
-					
-					// Fancy red screen flash for dramatic effect.
-					redScreenFlash();
-
-					// Hide the HUD for dramatic effect.
-					camHUD.visible = false;
-				case 92: // 23 x 4
-					// Re-enable the HUD.
-					// Stop screaming.
-					dad.forceAnimation = null;
-					camHUD.visible = true;
-				case 108:
-					// BF gets over his fear so he can sing..
-					boyfriend.forceAnimation = null;
-					gf.forceAnimation = null;
-				case 192: // 48 x 4
-					// Set enemy character to Dad.
-					var oldenemyx = PlayState.dad.x;
-					var oldenemyy = PlayState.dad.y;
-					removeObject(PlayState.dad); // Remove old dad from stage.
-					dad = new Character(oldenemyx, oldenemyy, "flavio"); // Create new dad.
-					addObject(PlayState.dad); // Add him in.
-					dad.y = 310 + 100; // Fix position.
-
-					iconP2.changeIcon("flavio"); // Replace HP icon.
-
-					// Hide the microphone.
-					flavioMic.visible = false;
-
-					// Make sure he's playing the idle animation.
-					dad.playAnim("idle");
-			}
-		}
-
-		if (curSong == 'TestB') {
-			switch(curStep) {
-				case 24: // 6 x 4
-					// Forcibly increase fear meter.
-					setFear(1);
-			}
-		}
 
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
@@ -5002,11 +4937,6 @@ class PlayState extends MusicBeatState
 			{
 				boyfriend.playAnim('hey', true);
 				dad.playAnim('cheer', true);
-			}
-
-			if (curBeat == 18 && SONG.song == 'TestA') {
-				boyfriend.playAnim('scared', true);
-				gf.playAnim('scared', true);
 			}
 
 			if (!PlayStateChangeables.Optimize)

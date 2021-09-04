@@ -262,7 +262,11 @@ class Note extends FlxSprite
 	}
 
 	public function setNoteType(noteType:String) {
-		if (noteType == null || noteType == "false") return;
+		// Why do all of these happen sometimes?
+		if (noteType == null || noteType == "false" || noteType == "" || noteType == "0") {
+			this.noteType = null;
+			return;
+		}
 
 		this.noteType = noteType.toLowerCase();
 

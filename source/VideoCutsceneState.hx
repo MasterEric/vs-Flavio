@@ -26,6 +26,8 @@ import flixel.addons.ui.FlxUIState;
 /**
  * This state will play a cutscene, then transition to a provided target state.
  * Acts kinda similarly to the LoadingState, but doesn't replace it!
+ * 
+ * DEPRECATED doesn't work in release for some reason.
  */
 class VideoCutsceneState extends FlxUIState {
 
@@ -90,6 +92,7 @@ class VideoCutsceneState extends FlxUIState {
     // TODO: Add check and throw error if video at path does not exist.
 
 		GlobalVideo.get().source(videoPath);
+    if (GlobalVideo.get() == null) trace('what why null');
 		GlobalVideo.get().clearPause();
 		if (GlobalVideo.isWebm) {
 			GlobalVideo.get().updatePlayer();
@@ -113,7 +116,7 @@ class VideoCutsceneState extends FlxUIState {
     // and thus the videoSprite will be continually re-rendered.
     var data = webmHandler.webm.bitmapData;
     // Initialize the video sprite with the video data.
-		videoSprite = new FlxSprite(0, 0).loadGraphic(data);
+		videoSprite = new FlxSprite(0, 0).loadGraphic(data, 1280, 720);
     videoSprite.scale.set(1,1);
     
     // Add the video sprite to the scene.

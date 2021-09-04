@@ -5,7 +5,7 @@ Asset Checklist
 [X] Main Menu Animation (GF)
 ---Main Menu---
 [X] Story Week Text
-[] Song Names
+[X] Song Names
 [X] Lineart Character Sprites (Idle Animation Only)
 ---Song---
 [X] Stage Graphics
@@ -14,8 +14,8 @@ Asset Checklist
 [X] Song 1 Voice
 [X] Song 2 Instrumental
 [X] Song 2 Voice
-[] Song 3 Instrumental
-[] Song 3 Voice
+[X] Song 3 Instrumental
+[X] Song 3 Voice
 [X] Character Sprites
 [X] Character HP Icon (Normal and Losing)
 
@@ -26,6 +26,7 @@ Asset Checklist
 
 ---Optional---
 [] Main Menu Theme
+[X] Main Menu Trophy
 [] Custom Main Menu Background (Optional)
 [X] Sprites for Custom Note Types
 [] Song 4 Instrumental

@@ -387,7 +387,7 @@ class TitleState extends MusicBeatState
 			case 0:
 				deleteCoolText();
 			case 1:
-				createCoolText(['JDH', 'MasterEric', 'Samy', 'isa.xml']);
+				createCoolText(['JDH', 'MasterEric', 'Samy', 'isa.xml', 'Matheus']);
 			// credTextShit.visible = true;
 			case 3:
 				addMoreText('present');

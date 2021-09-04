@@ -64,6 +64,7 @@
 		-->
 		<!-- Hell yeah it's Flavio time. -->
 		<library name="flavio" preload="true" />
+		<library path="videos" preload="true" />
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
@@ -81,6 +82,7 @@
 		-->
 		<!-- Hell yeah it's Flavio time. -->
 		<library name="flavio" preload="false" />
+		<library path="videos" preload="false" />
 	</section>
 	
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
@@ -106,7 +108,13 @@
 		<assets path="assets/sm"    library="sm"    exclude="*.mp3" unless="web"/>
 	-->
 	<!-- Hell yeah it's Flavio time. -->
+	<assets path="assets/flavio" library="flavio" exclude="*.ogg" if="web"/>
 	<assets path="assets/flavio" library="flavio" exclude="*.mp3" unless="web"/>
+	<assets path="assets/videos" exclude="*.mp3" if="web"/>
+	<assets path="assets/videos" exclude="*.ogg" unless="web"/>
+	
+	<assets path="plugins/" rename='' if="windows"/>
+	<assets path="dlls/" rename='' if="windows"/>
 	
 	<!-- <assets path='example_mods' rename='mods' embed='false'/> -->
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />

@@ -99,7 +99,7 @@ class Character extends FlxSprite
 			case 'flavio':
 				tex = Paths.getSparrowAtlas('flavio','shared',true);
 				frames = tex;
-				animation.addByPrefix('idle', 'flavio_idle', 24, false);
+				animation.addByPrefix('idle', 'flavio_idle', 24, true);
 				animation.addByPrefix('singUP', 'up', 24, false);
 				animation.addByPrefix('singRIGHT', 'right', 24, false);
 				animation.addByPrefix('singDOWN', 'down', 24, false);
@@ -115,7 +115,7 @@ class Character extends FlxSprite
 			case 'flavioPissed':
 				tex = Paths.getSparrowAtlas('flavioPissed','shared',true);
 				frames = tex;
-				animation.addByPrefix('idle', 'Flavio', 24, false);
+				animation.addByPrefix('idle', 'Flavio', 24, true);
 				animation.addByPrefix('singUP', 'Flav_Up', 24, false);
 				animation.addByPrefix('singRIGHT', 'Flav_Right', 24, false);
 				animation.addByPrefix('singDOWN', 'Flav_Down', 24, false);
