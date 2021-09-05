@@ -4,10 +4,8 @@ package;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxGradient;
 import haxe.Timer;
-import LuaClass.LuaCamera;
-import LuaClass.LuaCharacter;
+
 import lime.media.openal.AL;
-import LuaClass.LuaNote;
 import Song.Event;
 import openfl.media.Sound;
 #if sys
@@ -82,6 +80,9 @@ import Discord.DiscordClient;
 #if cpp
 import Sys;
 import sys.FileSystem;
+import LuaClass.LuaCamera;
+import LuaClass.LuaCharacter;
+import LuaClass.LuaNote;
 #end
 
 using StringTools;
@@ -765,19 +766,16 @@ class PlayState extends MusicBeatState
 		{
 			luaModchart = ModchartState.createModchartState(isStoryMode);
 			luaModchart.executeState('start', [songLowercase]);
+			new LuaCamera(camGame,"camGame").Register(ModchartState.lua);
+			new LuaCamera(camHUD,"camHUD").Register(ModchartState.lua);
+			new LuaCamera(camSustains,"camSustains").Register(ModchartState.lua);
+			new LuaCamera(camSustains,"camNotes").Register(ModchartState.lua);
+			new LuaCharacter(dad,"dad").Register(ModchartState.lua);
+			new LuaCharacter(gf,"gf").Register(ModchartState.lua);
+			new LuaCharacter(boyfriend,"boyfriend").Register(ModchartState.lua);
 		}
 		#end
 
-		if (executeModchart)
-			{
-				new LuaCamera(camGame,"camGame").Register(ModchartState.lua);
-				new LuaCamera(camHUD,"camHUD").Register(ModchartState.lua);
-				new LuaCamera(camSustains,"camSustains").Register(ModchartState.lua);
-				new LuaCamera(camSustains,"camNotes").Register(ModchartState.lua);
-				new LuaCharacter(dad,"dad").Register(ModchartState.lua);
-				new LuaCharacter(gf,"gf").Register(ModchartState.lua);
-				new LuaCharacter(boyfriend,"boyfriend").Register(ModchartState.lua);
-			}
 		var index = 0;
 
 		if (startTime != 0)
@@ -1611,8 +1609,10 @@ class PlayState extends MusicBeatState
 		if (useVideo)
 			GlobalVideo.get().resume();
 
+		#if cpp
 		if (executeModchart)
 			luaModchart.executeState("songStart",[null]);
+		#end
 
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
@@ -2181,11 +2181,13 @@ class PlayState extends MusicBeatState
 					var dunceNote:Note = unspawnNotes[0];
 					notes.add(dunceNote);
 
+					#if cpp
 					if (executeModchart)
 					{
 						new LuaNote(dunceNote,currentLuaIndex);			
 						dunceNote.luaID = currentLuaIndex;
-					}		
+					}
+					#end		
 					
 					if (executeModchart)
 					{
@@ -3631,27 +3633,30 @@ class PlayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
+					#if windows
 					var video:MP4Handler = new MP4Handler();
-
+					
 					// Load cutscene for next song.
 					if (PlayState.SONG.introCutscene != "" && !isCutscene) // Checks if the current week is Tutorial and cutscene not already playing.
 					{
-							video.playMP4(Paths.video(PlayState.SONG.introCutscene), new PlayState()); 
-							isCutscene = true;
-
-							// A quick fix.
-							camHUD.visible = false;
+						video.playMP4(Paths.video(PlayState.SONG.introCutscene), new PlayState()); 
+						isCutscene = true;
+						
+						// A quick fix.
+						camHUD.visible = false;
+					} else {
+						new FlxTimer().start(1, function(tmr:FlxTimer) {
+							if (isCutscene)
+								video.onVLCComplete();
+										
+							LoadingState.loadAndSwitchState(new PlayState(), true);
+						});
 					}
-					else
-					{
-							new FlxTimer().start(1, function(tmr:FlxTimer)
-							{
-									if (isCutscene)
-											video.onVLCComplete();
-					
-									LoadingState.loadAndSwitchState(new PlayState(), true);
-							});
-					}
+					#else
+					new FlxTimer().start(1, function(tmr:FlxTimer) {
+						LoadingState.loadAndSwitchState(new PlayState(), true);
+					});
+					#end
 
 					clean();
 				}

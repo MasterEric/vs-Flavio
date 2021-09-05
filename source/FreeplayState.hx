@@ -73,6 +73,11 @@ class FreeplayState extends MusicBeatState
 		clean();
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('data/freeplaySonglist'));
 
+		// ERIC: Unlock secret song.
+		if (FlxG.save.data.flavioOwned) {
+			
+		}
+
 		//var diffList = "";
 
 		songData = [];

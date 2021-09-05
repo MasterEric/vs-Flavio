@@ -1,0 +1,143 @@
+{
+  "song": {
+    "notes": [
+      {
+        "endTime": 1387.28323699422,
+        "sectionNotes": [],
+        "lengthInSteps": 16,
+        "mustHitSection": false,
+        "startTime": 0
+      },
+      {
+        "endTime": 2774.56647398844,
+        "sectionNotes": [],
+        "lengthInSteps": 16,
+        "mustHitSection": true,
+        "startTime": 1387.28323699422
+      },
+      {
+        "endTime": 4161.84971098266,
+        "sectionNotes": [
+          [
+            2861.27167630058,
+            0,
+            0,
+            false,
+            8.25,
+            "glitch"
+          ],
+          [
+            2861.27167630058,
+            3,
+            0,
+            false,
+            8.25,
+            "glitch"
+          ],
+          [
+            3034.68208092486,
+            2,
+            0,
+            false,
+            8.75,
+            "glitch"
+          ],
+          [
+            3034.68208092486,
+            1,
+            0,
+            false,
+            8.75,
+            "glitch"
+          ],
+          [
+            3208.09248554913,
+            0,
+            0,
+            false,
+            9.25,
+            "glitch"
+          ],
+          [
+            3294.79768786127,
+            1,
+            0,
+            false,
+            9.5,
+            "glitch"
+          ],
+          [
+            3381.50289017341,
+            0,
+            0,
+            false,
+            9.75,
+            "glitch"
+          ],
+          [
+            3468.20809248555,
+            1,
+            0,
+            false,
+            10,
+            "glitch"
+          ],
+          [
+            3468.20809248555,
+            4,
+            0,
+            false,
+            10,
+            "glitch"
+          ],
+          [
+            3381.50289017341,
+            5,
+            0,
+            false,
+            9.75,
+            "glitch"
+          ],
+          [
+            3294.79768786127,
+            4,
+            0,
+            false,
+            9.5,
+            "glitch"
+          ],
+          [
+            3208.09248554913,
+            5,
+            0,
+            false,
+            9.25,
+            "glitch"
+          ]
+        ],
+        "lengthInSteps": 16,
+        "mustHitSection": false,
+        "startTime": 2774.56647398844
+      }
+    ],
+    "eventObjects": [
+      {
+        "name": "Init BPM",
+        "position": 0,
+        "value": 173,
+        "type": "BPM Change"
+      }
+    ],
+    "chartVersion": "KE1",
+    "player1": "bf",
+    "gfVersion": "gf",
+    "player2": "flavio",
+    "song": "Respite",
+    "validScore": true,
+    "stage": "flavioLand2",
+    "needsVoices": true,
+    "noteStyle": "normal",
+    "speed": 2.3,
+    "bpm": 173
+  }
+}

@@ -1,3 +1,5 @@
+#if windows
+
 package vlc;
 
 import flixel.FlxG;
@@ -581,4 +583,6 @@ class VlcBitmap extends Bitmap
 
 	/////////////////////////////////////////////////////////////////////////////////////
 }
+#end
+
 #end

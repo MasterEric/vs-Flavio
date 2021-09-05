@@ -1,328 +1,1318 @@
 {
-  "song": {
-    "notes": [
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [0.0, 2, 0.0],
-          [600.0, 3, 600.0],
-          [1200.0, 3, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [2400.0, 2, 0.0],
-          [3000.0, 3, 600.0],
-          [3600.0, 3, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [4800.0, 1, 300.0],
-          [5400.0, 0, 300.0],
-          [6000.0, 3, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [7200.0, 1, 300.0],
-          [7800.0, 0, 300.0],
-          [8400.0, 3, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [9600.0, 1, 300.0],
-          [10200.0, 3, 0.0],
-          [10500.0, 0, 0.0],
-          [10800.0, 1, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [12000.0, 1, 300.0],
-          [12600.0, 3, 0.0],
-          [12900.0, 0, 0.0],
-          [13200.0, 1, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [14400.0, 3, 0.0],
-          [14700.0, 1, 0.0],
-          [15300.0, 0, 0.0],
-          [15600.0, 2, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [16800.0, 3, 0.0],
-          [17100.0, 1, 0.0],
-          [17700.0, 0, 0.0],
-          [18000.0, 2, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [19200.0, 0, 0.0],
-          [19500.0, 3, 0.0],
-          [19800.0, 1, 900.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [21600.0, 0, 0.0],
-          [21900.0, 3, 0.0],
-          [22200.0, 1, 900.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [24000.0, 1, 0.0],
-          [24300.0, 3, 0.0],
-          [24600.0, 0, 900.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [26400.0, 1, 0.0],
-          [26700.0, 3, 0.0],
-          [27000.0, 0, 900.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [28800.0, 2, 0.0],
-          [29100.0, 3, 0.0],
-          [29400.0, 0, 1200.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [31200.0, 2, 0.0],
-          [31500.0, 3, 0.0],
-          [31800.0, 0, 1200.0],
-          [33300.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [33600.0, 0, 0.0],
-          [33900.0, 3, 0.0],
-          [34500.0, 2, 0.0],
-          [34800.0, 1, 600.0],
-          [35700.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [36000.0, 0, 0.0],
-          [36300.0, 3, 0.0],
-          [36900.0, 2, 0.0],
-          [37200.0, 1, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [38400.0, 2, 450.0],
-          [39000.0, 3, 300.0],
-          [39600.0, 0, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [40800.0, 2, 450.0],
-          [41400.0, 3, 300.0],
-          [42000.0, 0, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [43200.0, 1, 0.0],
-          [43800.0, 2, 0.0],
-          [44400.0, 1, 0.0],
-          [44550.0, 1, 0.0],
-          [44700.0, 1, 0.0],
-          [45000.0, 2, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [45600.0, 1, 0.0],
-          [46200.0, 2, 0.0],
-          [46800.0, 1, 0.0],
-          [46950.0, 1, 0.0],
-          [47100.0, 1, 0.0],
-          [47400.0, 2, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [48000.0, 2, 450.0],
-          [48600.0, 3, 300.0],
-          [49200.0, 0, 450.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [50400.0, 2, 450.0],
-          [51000.0, 3, 300.0],
-          [51600.0, 0, 450.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [[52800.0, 3, 1800.0]]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [[55200.0, 3, 1800.0]]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [57600.0, 2, 0.0],
-          [57900.0, 3, 0.0],
-          [58200.0, 0, 1200.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [60000.0, 2, 0.0],
-          [60300.0, 3, 0.0],
-          [60600.0, 0, 1200.0],
-          [62100.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [62400.0, 0, 0.0],
-          [62700.0, 3, 0.0],
-          [63300.0, 2, 0.0],
-          [63600.0, 1, 600.0],
-          [64500.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [64800.0, 0, 0.0],
-          [65100.0, 3, 0.0],
-          [65700.0, 2, 0.0],
-          [66000.0, 1, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [67200.0, 2, 0.0],
-          [67500.0, 3, 0.0],
-          [67800.0, 0, 0.0],
-          [68100.0, 2, 0.0],
-          [68400.0, 1, 600.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [69600.0, 2, 0.0],
-          [69900.0, 3, 0.0],
-          [70200.0, 0, 0.0],
-          [70500.0, 2, 0.0],
-          [70800.0, 1, 600.0],
-          [71700.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": false,
-        "sectionNotes": [
-          [72000.0, 0, 0.0],
-          [72300.0, 3, 0.0],
-          [72900.0, 2, 0.0],
-          [73200.0, 1, 600.0],
-          [74100.0, 6, 0.0]
-        ]
-      },
-      {
-        "lengthInSteps": 16,
-        "mustHitSection": true,
-        "sectionNotes": [
-          [74400.0, 0, 0.0],
-          [74700.0, 3, 0.0],
-          [75300.0, 2, 0.0],
-          [75600.0, 1, 600.0]
-        ]
-      }
-    ],
-    "song": "DarkMagic",
-    "stage": "flavioLand2",
-    "bpm": 125.0,
-    "needsVoices": true,
-    "player1": "bf",
-    "player2": "flavio",
-    "speed": 1.0,
-    "chartVersion": "KE1",
-    "eventObjects": [
-      {
-        "name": "Init BPM",
-        "position": 0,
-        "value": 125,
-        "type": "BPM Change"
-      }
-    ]
-  }
+    "song": {
+        "player1": "bf",
+        "notes": [
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 1920,
+                "startTime": 0,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 3840,
+                "startTime": 1920,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 5760,
+                "startTime": 3840,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 7680,
+                "startTime": 5760,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 9600,
+                "startTime": 7680,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 11520,
+                "startTime": 9600,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 13440,
+                "startTime": 11520,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 15360,
+                "startTime": 13440,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        15477.5,
+                        3,
+                        420,
+                        false,
+                        32.2447916666667,
+                        null
+                    ],
+                    [
+                        16405,
+                        2,
+                        360,
+                        false,
+                        34.1770833333333,
+                        null
+                    ],
+                    [
+                        16405,
+                        2,
+                        360,
+                        0,
+                        34.1770833333333
+                    ]
+                ],
+                "endTime": 17280,
+                "startTime": 15360,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        17615,
+                        3,
+                        0,
+                        false,
+                        36.6979166666667,
+                        null
+                    ],
+                    [
+                        17890,
+                        2,
+                        0,
+                        false,
+                        37.2708333333333,
+                        null
+                    ],
+                    [
+                        18217.5,
+                        3,
+                        0,
+                        false,
+                        37.953125,
+                        null
+                    ],
+                    [
+                        18452.5,
+                        2,
+                        0,
+                        false,
+                        38.4427083333333,
+                        null
+                    ],
+                    [
+                        18885,
+                        0,
+                        0,
+                        false,
+                        39.34375,
+                        null
+                    ],
+                    [
+                        19077.5,
+                        2,
+                        0,
+                        false,
+                        39.7447916666667,
+                        null
+                    ]
+                ],
+                "endTime": 19200,
+                "startTime": 17280,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        19302.5,
+                        0,
+                        0,
+                        false,
+                        40.2135416666667,
+                        null
+                    ],
+                    [
+                        20007.5,
+                        0,
+                        0,
+                        false,
+                        41.6822916666667,
+                        null
+                    ],
+                    [
+                        20347.5,
+                        2,
+                        0,
+                        false,
+                        42.390625,
+                        null
+                    ],
+                    [
+                        20532.5,
+                        0,
+                        0,
+                        false,
+                        42.7760416666667,
+                        null
+                    ],
+                    [
+                        20840,
+                        2,
+                        0,
+                        false,
+                        43.4166666666667,
+                        null
+                    ],
+                    [
+                        19642.5,
+                        2,
+                        0,
+                        false,
+                        40.921875,
+                        null
+                    ]
+                ],
+                "endTime": 21120,
+                "startTime": 19200,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        21210,
+                        3,
+                        0,
+                        false,
+                        44.1875,
+                        null
+                    ],
+                    [
+                        21537.5,
+                        2,
+                        0,
+                        false,
+                        44.8697916666667,
+                        null
+                    ],
+                    [
+                        21815,
+                        3,
+                        0,
+                        false,
+                        45.4479166666667,
+                        null
+                    ],
+                    [
+                        22022.5,
+                        2,
+                        0,
+                        false,
+                        45.8802083333333,
+                        null
+                    ],
+                    [
+                        22482.5,
+                        1,
+                        480,
+                        false,
+                        46.8385416666667,
+                        null
+                    ]
+                ],
+                "endTime": 23040,
+                "startTime": 21120,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        23119.4444444445,
+                        3,
+                        360,
+                        false,
+                        48.1655092592593,
+                        null
+                    ],
+                    [
+                        24172.2222222222,
+                        2,
+                        360,
+                        false,
+                        50.3587962962963,
+                        null
+                    ]
+                ],
+                "endTime": 24960,
+                "startTime": 23040,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        25544.4444444444,
+                        2,
+                        0,
+                        false,
+                        53.2175925925926,
+                        null
+                    ],
+                    [
+                        25797.2222222222,
+                        3,
+                        0,
+                        false,
+                        53.744212962963,
+                        null
+                    ],
+                    [
+                        26016.6666666667,
+                        2,
+                        0,
+                        false,
+                        54.2013888888889,
+                        null
+                    ],
+                    [
+                        26569.4444444445,
+                        0,
+                        0,
+                        false,
+                        55.3530092592593,
+                        null
+                    ],
+                    [
+                        26802.7777777778,
+                        2,
+                        0,
+                        false,
+                        55.8391203703704,
+                        null
+                    ]
+                ],
+                "endTime": 26880,
+                "startTime": 24960,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        27272.2222222222,
+                        2,
+                        0,
+                        false,
+                        56.8171296296296,
+                        null
+                    ],
+                    [
+                        27011.1111111111,
+                        1,
+                        0,
+                        false,
+                        56.2731481481482,
+                        null
+                    ],
+                    [
+                        27683.3333333333,
+                        0,
+                        0,
+                        false,
+                        57.6736111111111,
+                        null
+                    ],
+                    [
+                        28252.7777777778,
+                        0,
+                        0,
+                        false,
+                        58.8599537037037,
+                        null
+                    ],
+                    [
+                        28530.5555555555,
+                        2,
+                        0,
+                        false,
+                        59.4386574074074,
+                        null
+                    ]
+                ],
+                "endTime": 28800,
+                "startTime": 26880,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        28902.7777777778,
+                        1,
+                        0,
+                        false,
+                        60.2141203703704,
+                        null
+                    ],
+                    [
+                        29169.4444444444,
+                        3,
+                        0,
+                        false,
+                        60.7696759259259,
+                        null
+                    ],
+                    [
+                        29361.1111111111,
+                        2,
+                        0,
+                        false,
+                        61.1689814814815,
+                        null
+                    ],
+                    [
+                        29661.1111111111,
+                        1,
+                        0,
+                        false,
+                        61.7939814814815,
+                        null
+                    ],
+                    [
+                        29966.6666666667,
+                        3,
+                        0,
+                        false,
+                        62.4305555555556,
+                        null
+                    ],
+                    [
+                        30141.6666666667,
+                        1,
+                        2280,
+                        false,
+                        62.7951388888889,
+                        null
+                    ]
+                ],
+                "endTime": 30720,
+                "startTime": 28800,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 32640,
+                "startTime": 30720,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        32805.5555555555,
+                        1,
+                        0,
+                        false,
+                        68.3449074074074,
+                        null
+                    ],
+                    [
+                        32961.1111111111,
+                        3,
+                        0,
+                        false,
+                        68.6689814814815,
+                        null
+                    ],
+                    [
+                        33272.2222222222,
+                        1,
+                        0,
+                        false,
+                        69.3171296296296,
+                        null
+                    ],
+                    [
+                        33422.2222222222,
+                        3,
+                        0,
+                        false,
+                        69.6296296296296,
+                        null
+                    ],
+                    [
+                        34186.1111111111,
+                        3,
+                        0,
+                        false,
+                        71.2210648148148,
+                        null
+                    ],
+                    [
+                        33905,
+                        1,
+                        0,
+                        false,
+                        70.6354166666667,
+                        null
+                    ]
+                ],
+                "endTime": 34560,
+                "startTime": 32640,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        34819.4444444445,
+                        3,
+                        0,
+                        false,
+                        72.5405092592593,
+                        null
+                    ],
+                    [
+                        34766.6666666667,
+                        0,
+                        0,
+                        false,
+                        72.4305555555556,
+                        null
+                    ],
+                    [
+                        35702.7777777778,
+                        1,
+                        0,
+                        false,
+                        74.3807870370371,
+                        null
+                    ],
+                    [
+                        35007.5,
+                        2,
+                        0,
+                        false,
+                        72.9322916666667,
+                        null
+                    ],
+                    [
+                        35000,
+                        2,
+                        0,
+                        false,
+                        72.9166666666667,
+                        null
+                    ],
+                    [
+                        34987.5,
+                        2,
+                        0,
+                        false,
+                        72.890625,
+                        null
+                    ]
+                ],
+                "endTime": 36480,
+                "startTime": 34560,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        36655.5555555555,
+                        3,
+                        0,
+                        false,
+                        76.3657407407407,
+                        null
+                    ],
+                    [
+                        37030.5555555555,
+                        2,
+                        0,
+                        false,
+                        77.1469907407407,
+                        null
+                    ],
+                    [
+                        37413.8888888889,
+                        2,
+                        0,
+                        false,
+                        77.9456018518519,
+                        null
+                    ],
+                    [
+                        37952.7777777778,
+                        3,
+                        0,
+                        false,
+                        79.0682870370371,
+                        null
+                    ]
+                ],
+                "endTime": 38400,
+                "startTime": 36480,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        38469.4444444444,
+                        0,
+                        0,
+                        false,
+                        80.1446759259259,
+                        null
+                    ],
+                    [
+                        38911.1111111111,
+                        2,
+                        0,
+                        false,
+                        81.0648148148148,
+                        null
+                    ]
+                ],
+                "endTime": 40320,
+                "startTime": 38400,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        40519.4444444445,
+                        1,
+                        0,
+                        false,
+                        84.4155092592593,
+                        null
+                    ],
+                    [
+                        40708.3333333333,
+                        3,
+                        0,
+                        false,
+                        84.8090277777778,
+                        null
+                    ],
+                    [
+                        40886.1111111111,
+                        0,
+                        0,
+                        false,
+                        85.1793981481482,
+                        null
+                    ],
+                    [
+                        41141.6666666667,
+                        3,
+                        0,
+                        false,
+                        85.7118055555556,
+                        null
+                    ],
+                    [
+                        41613.8888888889,
+                        2,
+                        0,
+                        false,
+                        86.6956018518518,
+                        null
+                    ],
+                    [
+                        41905.5555555555,
+                        2,
+                        0,
+                        false,
+                        87.3032407407407,
+                        null
+                    ]
+                ],
+                "endTime": 42240,
+                "startTime": 40320,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        42422.2222222222,
+                        0,
+                        0,
+                        false,
+                        88.3796296296296,
+                        null
+                    ],
+                    [
+                        42286.1111111111,
+                        3,
+                        0,
+                        false,
+                        88.0960648148148,
+                        null
+                    ],
+                    [
+                        43383.3333333333,
+                        2,
+                        300,
+                        false,
+                        90.3819444444444,
+                        null
+                    ],
+                    [
+                        43808.3333333333,
+                        1,
+                        240,
+                        false,
+                        91.2673611111111,
+                        null
+                    ],
+                    [
+                        42955.5555555555,
+                        1,
+                        0,
+                        false,
+                        89.4907407407407,
+                        null
+                    ],
+                    [
+                        42637.5,
+                        3,
+                        0,
+                        false,
+                        88.828125,
+                        null
+                    ]
+                ],
+                "endTime": 44160,
+                "startTime": 42240,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        44333.3333333333,
+                        3,
+                        0,
+                        false,
+                        92.3611111111111,
+                        null
+                    ],
+                    [
+                        44677.7777777778,
+                        0,
+                        0,
+                        false,
+                        93.0787037037037,
+                        null
+                    ],
+                    [
+                        44816.6666666667,
+                        3,
+                        0,
+                        false,
+                        93.3680555555556,
+                        null
+                    ],
+                    [
+                        45566.6666666667,
+                        2,
+                        0,
+                        false,
+                        94.9305555555556,
+                        null
+                    ],
+                    [
+                        44908.3333333333,
+                        1,
+                        0,
+                        false,
+                        93.5590277777778,
+                        null
+                    ],
+                    [
+                        45341.6666666667,
+                        1,
+                        0,
+                        false,
+                        94.4618055555556,
+                        null
+                    ]
+                ],
+                "endTime": 46080,
+                "startTime": 44160,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        46344.4444444444,
+                        0,
+                        0,
+                        false,
+                        96.5509259259259,
+                        null
+                    ],
+                    [
+                        46138.8888888889,
+                        1,
+                        0,
+                        false,
+                        96.1226851851852,
+                        null
+                    ],
+                    [
+                        46658.3333333333,
+                        2,
+                        0,
+                        false,
+                        97.2048611111111,
+                        null
+                    ],
+                    [
+                        47063.8888888889,
+                        1,
+                        900,
+                        false,
+                        98.0497685185185,
+                        null
+                    ]
+                ],
+                "endTime": 48000,
+                "startTime": 46080,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        48119.4444444446,
+                        7,
+                        840,
+                        false,
+                        100.248842592593,
+                        null
+                    ],
+                    [
+                        49066.6666666666,
+                        6,
+                        420,
+                        false,
+                        102.222222222222,
+                        null
+                    ],
+                    [
+                        49074.9999999998,
+                        2,
+                        420,
+                        false,
+                        102.239583333333,
+                        null
+                    ],
+                    [
+                        48122.2222222224,
+                        3,
+                        0,
+                        false,
+                        100.25462962963,
+                        null
+                    ]
+                ],
+                "endTime": 49920,
+                "startTime": 48000,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        51039.9999999998,
+                        7,
+                        540,
+                        false,
+                        106.333333333333,
+                        null
+                    ],
+                    [
+                        50079.9999999998,
+                        6,
+                        420,
+                        false,
+                        104.333333333333,
+                        null
+                    ],
+                    [
+                        50079.9999999998,
+                        2,
+                        420,
+                        false,
+                        104.333333333333,
+                        null
+                    ],
+                    [
+                        51030,
+                        3,
+                        540,
+                        false,
+                        106.3125,
+                        null
+                    ]
+                ],
+                "endTime": 51840,
+                "startTime": 49920,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        52012.5,
+                        2,
+                        0,
+                        false,
+                        108.359375,
+                        null
+                    ],
+                    [
+                        52185,
+                        1,
+                        0,
+                        false,
+                        108.71875,
+                        null
+                    ],
+                    [
+                        52227.5000000002,
+                        0,
+                        0,
+                        false,
+                        108.807291666667,
+                        null
+                    ],
+                    [
+                        52010.0000000002,
+                        6,
+                        0,
+                        false,
+                        108.354166666667,
+                        null
+                    ],
+                    [
+                        52192.5,
+                        5,
+                        0,
+                        false,
+                        108.734375,
+                        null
+                    ],
+                    [
+                        53022.5000000002,
+                        1,
+                        0,
+                        false,
+                        110.463541666667,
+                        null
+                    ],
+                    [
+                        53019.9999999998,
+                        5,
+                        0,
+                        false,
+                        110.458333333333,
+                        null
+                    ],
+                    [
+                        53165.0000000002,
+                        6,
+                        0,
+                        false,
+                        110.760416666667,
+                        null
+                    ],
+                    [
+                        53160,
+                        2,
+                        0,
+                        false,
+                        110.75,
+                        null
+                    ],
+                    [
+                        53447.4999999998,
+                        3,
+                        540,
+                        false,
+                        111.348958333333,
+                        null
+                    ],
+                    [
+                        53452.5,
+                        7,
+                        1800,
+                        false,
+                        111.359375,
+                        null
+                    ]
+                ],
+                "endTime": 53760,
+                "startTime": 51840,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 55680,
+                "startTime": 53760,
+                "mustHitSection": true
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        55764.9999999998,
+                        1,
+                        0,
+                        false,
+                        116.177083333333,
+                        null
+                    ],
+                    [
+                        55764.9999999998,
+                        5,
+                        0,
+                        false,
+                        116.177083333333,
+                        null
+                    ],
+                    [
+                        56027.4999999998,
+                        7,
+                        0,
+                        false,
+                        116.723958333333,
+                        null
+                    ],
+                    [
+                        56025,
+                        3,
+                        0,
+                        false,
+                        116.71875,
+                        null
+                    ],
+                    [
+                        56274.9999999998,
+                        4,
+                        0,
+                        false,
+                        117.239583333333,
+                        null
+                    ],
+                    [
+                        56267.4999999998,
+                        0,
+                        0,
+                        false,
+                        117.223958333333,
+                        null
+                    ],
+                    [
+                        56607.5000000002,
+                        6,
+                        0,
+                        false,
+                        117.932291666667,
+                        null
+                    ],
+                    [
+                        56600.0000000002,
+                        2,
+                        0,
+                        false,
+                        117.916666666667,
+                        null
+                    ],
+                    [
+                        56970,
+                        0,
+                        0,
+                        false,
+                        118.6875,
+                        null
+                    ],
+                    [
+                        57060,
+                        1,
+                        0,
+                        false,
+                        118.875,
+                        null
+                    ],
+                    [
+                        57144.9999999998,
+                        2,
+                        0,
+                        false,
+                        119.052083333333,
+                        null
+                    ],
+                    [
+                        57150,
+                        6,
+                        0,
+                        false,
+                        119.0625,
+                        null
+                    ],
+                    [
+                        57067.5,
+                        5,
+                        0,
+                        false,
+                        118.890625,
+                        null
+                    ]
+                ],
+                "endTime": 57600,
+                "startTime": 55680,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [
+                    [
+                        57744.9999999998,
+                        5,
+                        0,
+                        false,
+                        120.302083333333,
+                        null
+                    ],
+                    [
+                        57982.5,
+                        7,
+                        0,
+                        false,
+                        120.796875,
+                        null
+                    ],
+                    [
+                        57977.4999999998,
+                        3,
+                        0,
+                        false,
+                        120.786458333333,
+                        null
+                    ],
+                    [
+                        58067.4999999998,
+                        6,
+                        0,
+                        false,
+                        120.973958333333,
+                        null
+                    ],
+                    [
+                        58055.0000000002,
+                        2,
+                        0,
+                        false,
+                        120.947916666667,
+                        null
+                    ],
+                    [
+                        58155,
+                        1,
+                        0,
+                        false,
+                        121.15625,
+                        null
+                    ],
+                    [
+                        58562.4999999998,
+                        5,
+                        0,
+                        false,
+                        122.005208333333,
+                        null
+                    ],
+                    [
+                        58697.4999999998,
+                        1,
+                        0,
+                        false,
+                        122.286458333333,
+                        "glitch"
+                    ],
+                    [
+                        58692.5000000002,
+                        1,
+                        0,
+                        false,
+                        122.276041666667,
+                        "glitch"
+                    ],
+                    [
+                        58689.9999999998,
+                        1,
+                        0,
+                        false,
+                        122.270833333333,
+                        "glitch"
+                    ],
+                    [
+                        58687.5,
+                        1,
+                        0,
+                        false,
+                        122.265625,
+                        "glitch"
+                    ],
+                    [
+                        58677.5000000002,
+                        1,
+                        0,
+                        false,
+                        122.244791666667,
+                        "glitch"
+                    ],
+                    [
+                        58672.5,
+                        1,
+                        0,
+                        false,
+                        122.234375,
+                        "glitch"
+                    ],
+                    [
+                        58665,
+                        1,
+                        0,
+                        false,
+                        122.21875,
+                        "glitch"
+                    ],
+                    [
+                        58655.0000000002,
+                        1,
+                        0,
+                        false,
+                        122.197916666667,
+                        "glitch"
+                    ],
+                    [
+                        58647.5000000002,
+                        1,
+                        0,
+                        false,
+                        122.182291666667,
+                        "glitch"
+                    ],
+                    [
+                        58642.5,
+                        1,
+                        0,
+                        false,
+                        122.171875,
+                        "glitch"
+                    ],
+                    [
+                        58640.0000000002,
+                        1,
+                        0,
+                        false,
+                        122.166666666667,
+                        "glitch"
+                    ],
+                    [
+                        58637.4999999998,
+                        1,
+                        0,
+                        false,
+                        122.161458333333,
+                        "glitch"
+                    ],
+                    [
+                        58617.5000000002,
+                        1,
+                        0,
+                        false,
+                        122.119791666667,
+                        "glitch"
+                    ],
+                    [
+                        58560,
+                        1,
+                        0,
+                        false,
+                        122,
+                        null
+                    ]
+                ],
+                "endTime": 59520,
+                "startTime": 57600,
+                "mustHitSection": false
+            },
+            {
+                "lengthInSteps": 16,
+                "sectionNotes": [],
+                "endTime": 61440,
+                "startTime": 59520,
+                "mustHitSection": false
+            }
+        ],
+        "player2": "flavio",
+        "gfVersion": "gf",
+        "chartVersion": "KE1",
+        "eventObjects": [
+            {
+                "name": "Init BPM",
+                "position": 0,
+                "value": 125,
+                "type": "BPM Change"
+            }
+        ],
+        "song": "DarkMagic",
+        "needsVoices": true,
+        "stage": "flavioLand2",
+        "validScore": true,
+        "introCutscene": "",
+        "speed": 1.3,
+        "bpm": 125,
+        "noteStyle": "normal"
+    }
 }

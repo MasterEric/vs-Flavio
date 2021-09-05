@@ -377,23 +377,27 @@ class StoryMenuState extends MusicBeatState
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 
+			#if windows
 			var video:MP4Handler = new MP4Handler();
 
 			if (PlayState.SONG.introCutscene != "" && !isCutscene) // Checks if the current week is Tutorial and cutscene not already playing.
 			{
 					video.playMP4(Paths.video(PlayState.SONG.introCutscene), new PlayState()); 
 					isCutscene = true;
+			} else {
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					if (isCutscene)
+						video.onVLCComplete();
+	
+					LoadingState.loadAndSwitchState(new PlayState(), true);
+				});
 			}
-			else
-			{
-					new FlxTimer().start(1, function(tmr:FlxTimer)
-					{
-							if (isCutscene)
-									video.onVLCComplete();
-			
-							LoadingState.loadAndSwitchState(new PlayState(), true);
-					});
-			}
+			#else
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				LoadingState.loadAndSwitchState(new PlayState(), true);
+			});
+			#end
 		}
 	}
 

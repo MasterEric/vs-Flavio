@@ -131,11 +131,6 @@
 	<assets path="assets/fonts" embed='true'/>
 	<!-- _______________________________ Libraries ______________________________ -->
 	
-	<!-- Better debugging. Has to come before Flixel. -->
-	<haxelib name="crashdumper" />
-	<!-- Required for CrashDumper. -->
-	<haxedef name="safeMode"/>
-	<haxedef name="openfl-enable-handle-error" />
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
 	<haxedef name="HXCPP_STACK_TRACE"/>
