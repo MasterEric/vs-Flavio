@@ -6,9 +6,8 @@ import flixel.math.FlxMath;
 import flixel.FlxCamera;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
-#if desktop
+#if FEATURE_DISCORD
 import Discord.DiscordClient;
-import sys.thread.Thread;
 #end
 
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -41,7 +40,7 @@ class GameplayCustomizeState extends MusicBeatState
     private var camHUD:FlxCamera;
     
     public override function create() {
-        #if desktop
+        #if FEATURE_DISCORD
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Customizing Gameplay Modules", null);
 		#end
@@ -226,10 +225,15 @@ class GameplayCustomizeState extends MusicBeatState
     {
         super.beatHit();
 
-        bf.playAnim('idle', true);
-        dad.dance(true);
-        gf.dance();
+		if (curBeat % 2 == 0)
+		{
+			bf.dance();
+			dad.dance();
+		}
+		else if (dad.curCharacter == 'spooky' || dad.curCharacter == 'gf')
+			dad.dance();
 
+		gf.dance();
         FlxG.camera.zoom += 0.015;
         camHUD.zoom += 0.010;
 

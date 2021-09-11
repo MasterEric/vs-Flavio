@@ -1,7 +1,9 @@
 package;
 import haxe.Exception;
-#if sys
+#if FEATURE_STEPMANIA
 import smTools.SMFile;
+#end
+#if FEATURE_FILESYSTEM
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -23,7 +25,6 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import io.newgrounds.NG;
 import lime.app.Application;
 import lime.utils.Assets;
 import flixel.math.FlxMath;
@@ -197,12 +198,14 @@ class ResultsScreen extends FlxSubState
             music.fadeOut(0.3);
             
             PlayState.loadRep = false;
+            PlayState.stageTesting = false;
             PlayState.rep = null;
 
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
 			switch (songHighscore) {
 				case 'Dad-Battle': songHighscore = 'Dadbattle';
 				case 'Philly-Nice': songHighscore = 'Philly';
+				case 'M.I.L.F': songHighscore = 'Milf';
 			}
 
 			#if !switch
@@ -226,11 +229,13 @@ class ResultsScreen extends FlxSubState
             PlayState.rep = null;
 
             PlayState.loadRep = false;
+            PlayState.stageTesting = false;
 
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
 			switch (songHighscore) {
 				case 'Dad-Battle': songHighscore = 'Dadbattle';
 				case 'Philly-Nice': songHighscore = 'Philly';
+				case 'M.I.L.F': songHighscore = 'Milf';
 			}
 
 			#if !switch

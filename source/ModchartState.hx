@@ -1,6 +1,7 @@
 // this file is for modchart things, this is to declutter playstate.hx
 
 // Lua
+#if FEATURE_LUAMODCHART
 import LuaClass.LuaGame;
 import LuaClass.LuaWindow;
 import LuaClass.LuaSprite;
@@ -9,7 +10,6 @@ import LuaClass.LuaReceptor;
 import openfl.display3D.textures.VideoTexture;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
-#if cpp
 import flixel.tweens.FlxEase;
 import openfl.filters.ShaderFilter;
 import flixel.tweens.FlxTween;
@@ -259,12 +259,13 @@ class ModchartState
 
 	function makeAnimatedLuaSprite(spritePath:String,names:Array<String>,prefixes:Array<String>,startAnim:String, id:String)
 	{
-		#if sys
+		#if FEATURE_FILESYSTEM
 		// pre lowercasing the song name (makeAnimatedLuaSprite)
 		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
 		switch (songLowercase) {
 			case 'dad-battle': songLowercase = 'dadbattle';
 			case 'philly-nice': songLowercase = 'philly';
+			case 'm.i.l.f': songLowercase = 'milf';
 		}
 
 		var data:BitmapData = BitmapData.fromFile(Sys.getCwd() + "assets/data/" + songLowercase + '/' + spritePath + ".png");
@@ -293,12 +294,13 @@ class ModchartState
 
 	function makeLuaSprite(spritePath:String,toBeCalled:String, drawBehind:Bool)
 	{
-		#if sys
+		#if FEATURE_FILESYSTEM
 		// pre lowercasing the song name (makeLuaSprite)
 		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
 		switch (songLowercase) {
 			case 'dad-battle': songLowercase = 'dadbattle';
 			case 'philly-nice': songLowercase = 'philly';
+			case 'm.i.l.f': songLowercase = 'milf';
 		}
 
 		var path = Sys.getCwd() + "assets/data/" + songLowercase + '/';
@@ -382,6 +384,8 @@ class ModchartState
 				songLowercase = 'dadbattle';
 			case 'philly-nice':
 				songLowercase = 'philly';
+			case 'm.i.l.f':
+				songLowercase = 'milf';
 		}
 
 		var path = Paths.lua(songLowercase + "/modchart");

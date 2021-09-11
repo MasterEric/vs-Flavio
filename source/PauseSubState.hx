@@ -2,7 +2,7 @@ package;
 
 import flixel.input.gamepad.FlxGamepad;
 import openfl.Lib;
-#if desktop
+#if FEATURE_LUAMODCHART
 import llua.Lua;
 #end
 import Controls.Control;
@@ -82,7 +82,7 @@ class PauseSubState extends MusicBeatSubstate
 		perSongOffset.scrollFactor.set();
 		perSongOffset.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		
-		#if cpp
+		#if FEATURE_FILESYSTEM
 			add(perSongOffset);
 		#end
 
@@ -130,10 +130,11 @@ class PauseSubState extends MusicBeatSubstate
 		switch (songLowercase) {
 			case 'dad-battle': songLowercase = 'dadbattle';
 			case 'philly-nice': songLowercase = 'philly';
+			case 'm.i.l.f': songLowercase = 'milf';
 		}
 		var songPath = 'assets/data/' + songLowercase + '/';
 
-		#if sys
+		#if FEATURE_STEPMANIA
 		if (PlayState.isSM && !PlayState.isStoryMode)
 			songPath = PlayState.pathToSm;
 		#end
@@ -148,7 +149,7 @@ class PauseSubState extends MusicBeatSubstate
 			changeSelection(1);
 		}
 		
-		#if cpp
+		#if FEATURE_FILESYSTEM
 			else if (controls.LEFT_P || leftPcontroller)
 			{
 				oldOffset = PlayState.songOffset;
@@ -224,6 +225,7 @@ class PauseSubState extends MusicBeatSubstate
 					}
 					PlayState.instance.clean();
 					FlxG.resetState();
+					PlayState.stageTesting = false;
 				case "Exit to menu":
 					PlayState.startTime = 0;
 					if (PlayState.instance.useVideo)
@@ -239,15 +241,16 @@ class PauseSubState extends MusicBeatSubstate
 						FlxG.save.data.downscroll = false;
 					}
 					PlayState.loadRep = false;
-					#if desktop
+					PlayState.stageTesting = false;
+					#if FEATURE_LUAMODCHART
 					if (PlayState.luaModchart != null)
 					{
 						PlayState.luaModchart.die();
 						PlayState.luaModchart = null;
 					}
 					#end
-					if (FlxG.save.data.fpsCap > 290)
-						(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
+					if (FlxG.save.data.fpsCap > 340)
+						(cast (Lib.current.getChildAt(0), Main)).setFPSCap(120);
 					
 					PlayState.instance.clean();
 

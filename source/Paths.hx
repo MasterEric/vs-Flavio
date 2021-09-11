@@ -108,6 +108,7 @@ class Paths
 			switch (songLowercase) {
 				case 'dad-battle': songLowercase = 'dadbattle';
 				case 'philly-nice': songLowercase = 'philly';
+				case 'm.i.l.f': songLowercase = 'milf';
 			}
 		return 'songs:assets/songs/${songLowercase}/Voices.$SOUND_EXT';
 	}
@@ -118,6 +119,7 @@ class Paths
 			switch (songLowercase) {
 				case 'dad-battle': songLowercase = 'dadbattle';
 				case 'philly-nice': songLowercase = 'philly';
+				case 'm.i.l.f': songLowercase = 'milf';
 			}
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
@@ -135,12 +137,12 @@ class Paths
 	inline static public function getSparrowAtlas(key:String, ?library:String, ?isCharacter:Bool = false)
 	{
 		var usecahce = FlxG.save.data.cacheImages;
-		#if !cpp
+		#if !FEATURE_FILESYSTEM
 		usecahce = false;
 		#end
 		if (isCharacter)
 			if (usecahce)
-				#if cpp
+				#if FEATURE_FILESYSTEM
 				return FlxAtlasFrames.fromSparrow(imageCached(key), file('images/characters/$key.xml', library));
 				#else
 				return null;
@@ -150,7 +152,7 @@ class Paths
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
-	#if cpp
+	#if FEATURE_FILESYSTEM
 	inline static public function imageCached(key:String):FlxGraphic
 	{
 		var data = Caching.bitmapData.get(key);
@@ -162,12 +164,12 @@ class Paths
 	inline static public function getPackerAtlas(key:String, ?library:String, ?isCharacter:Bool = false)
 	{
 		var usecahce = FlxG.save.data.cacheImages;
-		#if !cpp
+		#if !FEATURE_FILESYSTEM
 		usecahce = false;
 		#end
 		if (isCharacter)
 			if (usecahce)
-				#if cpp
+				#if FEATURE_FILESYSTEM
 				return FlxAtlasFrames.fromSpriteSheetPacker(imageCached(key), file('images/characters/$key.txt', library));
 				#else
 				return null;

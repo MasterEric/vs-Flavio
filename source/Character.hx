@@ -14,6 +14,7 @@ class Character extends FlxSprite
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
+	public var barColor:Int;
 
 	public var holdTimer:Float = 0;
 
@@ -27,6 +28,7 @@ class Character extends FlxSprite
 	{
 		super(x, y);
 
+		barColor = isPlayer ? 0xFF66FF33 : 0xFFFF0000;
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
@@ -52,6 +54,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('scared', 'GF FEAR', 24);
 
 				loadOffsetFile(curCharacter);
+				barColor = 0xFFa5004d;
 
 				playAnim('danceRight');
 
@@ -65,6 +68,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
 
 				loadOffsetFile(curCharacter);
+				barColor = 0xFFaf66ce;
 
 				playAnim('idle');
 
@@ -134,6 +138,9 @@ class Character extends FlxSprite
 				playAnim('idle');
 		}
 
+		if (curCharacter.startsWith('bf'))
+			barColor = 0xFF31b0d1;
+
 		dance();
 
 		if (isPlayer && frames != null)
@@ -184,13 +191,19 @@ class Character extends FlxSprite
 				holdTimer += elapsed;
 			}
 
+			if (curCharacter.endsWith('-car') && !animation.curAnim.name.startsWith('sing') && animation.curAnim.finished && animation.getByName('idleHair') != null)
+				playAnim('idleHair');
+
 			var dadVar:Float = 4;
 
 			if (curCharacter == 'dad')
 				dadVar = 6.1;
+			else if (curCharacter == 'gf' || curCharacter == 'spooky')
+				dadVar = 4.1; //fix double dances
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
-				trace('dance');
+				if (curCharacter == 'gf' || curCharacter == 'spooky')
+					playAnim('danceLeft'); //overridden by dance correctly later
 				dance();
 				holdTimer = 0;
 			}
@@ -200,7 +213,10 @@ class Character extends FlxSprite
 		{
 			case 'gf':
 				if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
+				{
+					danced = true;
 					playAnim('danceRight');
+				}
 		}
 
 		super.update(elapsed);
@@ -218,7 +234,7 @@ class Character extends FlxSprite
 			switch (curCharacter)
 			{
 				case 'gf' | 'gf-christmas' | 'gf-car' | 'gf-pixel':
-					if (!animation.curAnim.name.startsWith('hair'))
+					if (!animation.curAnim.name.startsWith('hair') && !animation.curAnim.name.startsWith('sing'))
 					{
 						danced = !danced;
 
@@ -228,12 +244,22 @@ class Character extends FlxSprite
 							playAnim('danceLeft');
 					}
 				case 'spooky':
-					danced = !danced;
+					if (!animation.curAnim.name.startsWith('sing'))
+					{
+						danced = !danced;
 
-					if (danced)
-						playAnim('danceRight');
-					else
-						playAnim('danceLeft');
+						if (danced)
+							playAnim('danceRight');
+						else
+							playAnim('danceLeft');
+					}
+				/*
+				// new dance code is gonna end up cutting off animation with the idle
+				// so here's example code that'll fix it. just adjust it to ya character 'n shit
+				case 'custom character':
+					if (!animation.curAnim.name.endsWith('custom animation'))
+						playAnim('idle', forced);
+				*/
 				default:
 					if (altAnim && animation.getByName('idle-alt') != null)
 						playAnim('idle-alt', forced);

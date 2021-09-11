@@ -89,7 +89,17 @@ class Song
         folderLowercase = 'philly';
     }
 
-    trace('loading ' + folderLowercase + '/' + jsonInput.toLowerCase());
+	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
+	{
+		// pre lowercasing the folder name
+		var folderLowercase = StringTools.replace(folder, " ", "-").toLowerCase();
+		switch (folderLowercase) {
+			case 'dad-battle': folderLowercase = 'dadbattle';
+			case 'philly-nice': folderLowercase = 'philly';
+			case 'm.i.l.f': folderLowercase = 'milf';
+		}
+		
+		trace('loading ' + folderLowercase + '/' + jsonInput.toLowerCase());
 
     try {
       var rawJson = Assets.getText(Paths.json(folderLowercase + '/' + jsonInput.toLowerCase())).trim();
@@ -252,6 +262,6 @@ class Song
 				section.CPUAltAnim = section.altAnim;
 		}
 
-		return swagShit;
+		return Song.conversionChecks(swagShit);
 	}
 }
